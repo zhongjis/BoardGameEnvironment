@@ -1,5 +1,6 @@
 /*
  * This file is for pieces will be placed on gameBoard
+ * you suppose to create your own piece class inherited from this
  */
 
 package BoardGameEnvironment;
@@ -10,7 +11,7 @@ public class Piece {
 	public Piece() {
 		this.id = 0;
 	}
-	
+
 	public Piece(int id) {
 		this.id = id;
 	}

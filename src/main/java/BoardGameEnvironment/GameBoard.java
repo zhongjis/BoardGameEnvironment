@@ -2,7 +2,6 @@
  * This file is board class
  */
 package BoardGameEnvironment;
-import java.util.ArrayList;
 
 public class GameBoard{
 	int width;
@@ -11,9 +10,9 @@ public class GameBoard{
 
 	/**
 	 * init GameBoard with given width & height
-	 * @param  width  [description]
-	 * @param  height [description]
-	 * @return        [description]
+	 * @param  width  [board width]
+	 * @param  height [board height]
+	 * @return        [null]
 	 */
 	public GameBoard(int width, int height) {
 		this.width = width;
@@ -29,7 +28,7 @@ public class GameBoard{
 	}
 
 	/**
-	 * [getBoardArray description]
+	 * [getBoardArray]
 	 * @return [description]
 	 */
 	public Piece[][] getBoardArray(){
@@ -37,10 +36,10 @@ public class GameBoard{
 	}
 
 	/**
-	 * [getPiece description]
-	 * @param  x [description]
-	 * @param  y [description]
-	 * @return   [description]
+	 * get a specifc piece obejct on the baord at the location: x, y
+	 * @param  x [x-axis]
+	 * @param  y [y-axis]
+	 * @return   [piece obejct]
 	 */
 	public Piece getPiece(int x, int y) {
 		if(x < this.boardArray.length && y < this.boardArray[x].length) {
@@ -51,11 +50,11 @@ public class GameBoard{
 	}
 
 	/**
-	 * [setPiece description]
-	 * @param  x     [description]
-	 * @param  y     [description]
-	 * @param  piece [description]
-	 * @return       [description]
+	 * place a specific piece object on the board object
+	 * @param  x     [x-axis]
+	 * @param  y     [y-axis]
+	 * @param  piece [piece obejct]
+	 * @return       [return true if the action is successful, vice-versa]
 	 */
 	public boolean setPiece(int x, int y, Piece piece) {
 		if(x < this.boardArray.length && y < this.boardArray[x].length) {
@@ -67,8 +66,8 @@ public class GameBoard{
 	}
 
 	/**
-	 * override exisiting print and print out the baord
-	 * @return [description]
+	 * override exisiting print and print out the board, pieces are presented by their names
+	 * @return [game board]
 	 */
 	@Override
 	public String toString(){
