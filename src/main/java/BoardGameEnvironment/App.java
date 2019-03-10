@@ -10,6 +10,8 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        // testing board creation and presentation
         GameBoard testingBoard = new GameBoard(4, 5);
         testingBoard.getBoardArray();
         System.out.println(testingBoard);

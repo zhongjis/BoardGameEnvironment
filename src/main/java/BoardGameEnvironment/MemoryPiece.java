@@ -1,3 +1,7 @@
+/*
+ * Piece obejct for Memory game only
+ */
+
 package BoardGameEnvironment;
 
 public class MemoryPiece extends Piece {
