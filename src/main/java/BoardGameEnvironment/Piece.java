@@ -1,11 +1,16 @@
 /*
  * This file is for pieces will be placed on gameBoard
  */
+
 package BoardGameEnvironment;
 
-public abstract class Piece {
+public class Piece {
 	protected int id;
 
+	public Piece() {
+		this.id = 0;
+	}
+	
 	public Piece(int id) {
 		this.id = id;
 	}
@@ -14,6 +19,6 @@ public abstract class Piece {
 		return this.id;
 	}
 
-	@Override
-	public abstract String toString();
+	// @Override
+	// public String toString();
 }

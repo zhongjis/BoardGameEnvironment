@@ -10,8 +10,8 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-        // GameBoard testingBoard = new GameBoard<MemoryPiece>(4, 5);
-        // testingBoard.getBoardArray();
-        // System.out.println(testingBoard);
+        GameBoard testingBoard = new GameBoard(4, 5);
+        testingBoard.getBoardArray();
+        System.out.println(testingBoard);
     }
 }

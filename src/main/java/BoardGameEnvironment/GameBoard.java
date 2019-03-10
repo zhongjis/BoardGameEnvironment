@@ -4,10 +4,10 @@
 package BoardGameEnvironment;
 import java.util.ArrayList;
 
-public class GameBoard <T extends Piece>{
+public class GameBoard{
 	int width;
 	int height;
-	T[][] boardArray;
+	Piece[][] boardArray;
 
 	/**
 	 * init GameBoard with given width & height
@@ -18,14 +18,21 @@ public class GameBoard <T extends Piece>{
 	public GameBoard(int width, int height) {
 		this.width = width;
 		this.height = height;
-		boardArray = new T[width][height];
+		boardArray = new Piece[width][height];
+
+		// populate default pieces into the board
+		for(int i=0; i< this.boardArray.length; i++){
+			for(int j = 0; j <this.boardArray[i].length; j++) {
+				boardArray[i][j] = new Piece();
+			}
+		}
 	}
 
 	/**
 	 * [getBoardArray description]
 	 * @return [description]
 	 */
-	public T[][] getBoardArray(){
+	public Piece[][] getBoardArray(){
 		return this.boardArray;
 	}
 
@@ -35,7 +42,7 @@ public class GameBoard <T extends Piece>{
 	 * @param  y [description]
 	 * @return   [description]
 	 */
-	public T getPiece(int x, int y) {
+	public Piece getPiece(int x, int y) {
 		if(x < this.boardArray.length && y < this.boardArray[x].length) {
 			return this.boardArray[x][y];
 		}else {
@@ -50,7 +57,7 @@ public class GameBoard <T extends Piece>{
 	 * @param  piece [description]
 	 * @return       [description]
 	 */
-	public boolean setPiece(int x, int y, T piece) {
+	public boolean setPiece(int x, int y, Piece piece) {
 		if(x < this.boardArray.length && y < this.boardArray[x].length) {
 			this.boardArray[x][y] = piece;
 			return true;	
@@ -69,7 +76,7 @@ public class GameBoard <T extends Piece>{
 
 		for(int i=0; i< this.boardArray.length; i++){
 			for(int j = 0; j <this.boardArray[i].length; j++) {
-				output += boardArray[i][j] + " ";
+				output += boardArray[i][j].getId() + " ";
 			}
 			output += "\n";
 		}
