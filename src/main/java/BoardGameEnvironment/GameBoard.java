@@ -3,18 +3,18 @@
  */
 package BoardGameEnvironment;
 
-public class GameBoard{
+public class GameBoard {
 	int width;
 	int height;
 	Piece[][] boardArray;
 
 	/**
-	 * init GameBoard with given width & height
+	 * init GameBoard with given width & height & game type. about game type please checkout PieceFactory.java
 	 * @param  width  [board width]
 	 * @param  height [board height]
 	 * @return        [null]
 	 */
-	public GameBoard(int width, int height) {
+	public GameBoard(int width, int height, String gameType) {
 		this.width = width;
 		this.height = height;
 		boardArray = new Piece[width][height];
@@ -22,7 +22,8 @@ public class GameBoard{
 		// populate default pieces into the board
 		for(int i=0; i< this.boardArray.length; i++){
 			for(int j = 0; j <this.boardArray[i].length; j++) {
-				boardArray[i][j] = new Piece();
+				// boardArray[i][j] = new Piece();
+				boardArray[i][j] = PieceFactory.createPiece(gameType);
 			}
 		}
 	}

@@ -12,6 +12,10 @@ public class MemoryPiece extends Piece {
 		super(id);
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return Integer.toString(this.id);

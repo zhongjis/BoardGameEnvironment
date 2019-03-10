@@ -11,9 +11,12 @@ public class App {
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
 
+        Menu start = new Menu();
+        
         // testing board creation and presentation
-        GameBoard testingBoard = new GameBoard(4, 5);
-        testingBoard.getBoardArray();
+        GameBoard testingBoard = new GameBoard(4, 5, "memory");
+        // testingBoard.getBoardArray();
         System.out.println(testingBoard);
+
     }
 }
