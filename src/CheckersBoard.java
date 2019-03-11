@@ -53,16 +53,5 @@ public class CheckersBoard {
 	}
 	
 	
-	public void movePiece(CheckersLocation coordStart, CheckersLocation coordEnd, int turn)
-	{
-		int x = coordStart.getX(), y = coordStart.getY();
 
-		board[x][y].player = 0;
-		
-		x = coordEnd.getX();
-		y = coordEnd.getY();
-		
-		board[x][y].player = turn;
-
-	}
 }
