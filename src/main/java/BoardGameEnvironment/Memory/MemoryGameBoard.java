@@ -7,11 +7,11 @@ public class MemoryGameBoard extends GameBoard {
   public MemoryGameBoard(int width, int height) {
 	    super(width, height, "memory");
 	    
-	    this.initalizeGameBoard();
+	    this.initializeGameBoard();
   }
 
 
-  void initalizeGameBoard() {
+  void initializeGameBoard() {
     int pairs = (this.width * this.height)/2;
     int[] randomPairs = generateRandomPairs(pairs);
 
