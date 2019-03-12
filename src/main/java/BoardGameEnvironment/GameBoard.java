@@ -3,7 +3,7 @@
  */
 package BoardGameEnvironment;
 
-public class GameBoard {
+abstract class GameBoard {
 	int width;
 	int height;
 	Piece[][] boardArray;
@@ -22,11 +22,17 @@ public class GameBoard {
 		// populate default pieces into the board
 		for(int i=0; i< this.boardArray.length; i++){
 			for(int j = 0; j <this.boardArray[i].length; j++) {
-				// boardArray[i][j] = new Piece();
 				boardArray[i][j] = PieceFactory.createPiece(gameType);
 			}
 		}
 	}
+
+	/**
+	 * Implement this function to populate your board with
+	 * actual game pieces. Call this function right after you
+	 * initalize GameBoard.
+	 */
+	abstract void initializeGameBoard();
 
 	/**
 	 * [getBoardArray]
