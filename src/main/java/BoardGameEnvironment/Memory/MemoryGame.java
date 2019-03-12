@@ -26,7 +26,7 @@ package BoardGameEnvironment;
 	}
 	
 	@Override
-	User checkIfWin() {
+	User checkIfEnd() {
 		// TODO Auto-generated method stub
 		return null;
 	}
