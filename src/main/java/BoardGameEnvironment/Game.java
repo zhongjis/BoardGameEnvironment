@@ -9,6 +9,14 @@ abstract class Game {
     this.players = players;
   }
 
+  public User getPlayer(int i) {
+    if(0 <= i && i < this.players.length()) {
+      return this.players[i];
+    }else {
+      return null;
+    }
+  }
+
   abstract void run();
 
   abstract void end();
