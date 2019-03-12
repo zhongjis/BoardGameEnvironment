@@ -7,7 +7,7 @@ public class MemoryGameBoard extends GameBoard {
   public MemoryGameBoard(int width, int height) {
 	    super(width, height, "memory");
 	    
-	    this.populateGameBoard();
+	    this.initalizeGameBoard();
   }
 
 
