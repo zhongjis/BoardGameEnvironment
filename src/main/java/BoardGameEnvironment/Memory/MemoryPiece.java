@@ -5,13 +5,26 @@
 package BoardGameEnvironment;
 
 public class MemoryPiece extends Piece {
+	private Boolean matched;
+
 	public MemoryPiece() {
 		super(0);
-	}
-	public MemoryPiece(int id) {
-		super(id);
+		this.matched = false;
 	}
 
+	public MemoryPiece(int id) {
+		super(id);
+		this.matched = false;
+	}
+
+	public Boolean getMatched() {
+		return this.matched;
+	}
+
+	public void setMatched(Boolean matched) {
+		this.matched = matched;
+	}
+ 
 	public void setId(int id) {
 		this.id = id;
 	}
