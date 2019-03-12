@@ -10,7 +10,7 @@ abstract class Game {
   }
 
   public User getPlayer(int i) {
-    if(0 <= i && i < this.players.length()) {
+    if(0 <= i && i < this.players.length) {
       return this.players[i];
     }else {
       return null;
