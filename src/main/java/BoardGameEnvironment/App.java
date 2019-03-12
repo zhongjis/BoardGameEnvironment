@@ -11,12 +11,10 @@ public class App {
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
 
-        Menu start = new Menu();
+        // Menu start = new Menu();
         
         // testing board creation and presentation
-        GameBoard testingBoard = new GameBoard(4, 5, "memory");
-        // testingBoard.getBoardArray();
-        System.out.println(testingBoard);
-
+        GameBoard memoryBoard = new MemoryGameBoard(4,5);
+        System.out.println(memoryBoard);
     }
 }
