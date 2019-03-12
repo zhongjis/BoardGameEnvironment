@@ -45,6 +45,36 @@ public class CheckersGamestate {
 		}
 	}
 	
+	public ArrayList<CheckersLocation> listOfValidMoves(){
+		ArrayList<CheckersLocation> allNonCapturableMoves = new ArrayList<CheckersLocation>();
+		ArrayList<CheckersLocation> allCapturableMoves = new ArrayList<CheckersLocation>();
+		if(playerTurn == 1) {
+			
+		}
+		else {
+			for (int i = 0; i < board.getBoard().length; i++) {
+				for(int j = 0; j < board.getBoard()[i].length; j++) {
+					if(board.getBoard()[i][j].player == 2) {
+						ArrayList<CheckersLocation> temp = checkDownMoves(new CheckersLocation(i, j));
+						for(int k = 0; k < temp.size();k++) {
+							if(temp.get(k).getCapturable())
+								allCapturableMoves.add(temp.get(k));
+							else
+								allNonCapturableMoves.add(temp.get(k));
+							break;
+						}
+					}
+				}
+			}
+		}
+		if(allCapturableMoves.size() == 0) {
+			return allNonCapturableMoves;
+		}
+		else {
+			return allCapturableMoves;
+		}
+	}
+	
 	public boolean checkValidSelection(CheckersLocation coord) {
 		int x = coord.getX(), y = coord.getY();
 		if(!checkInbounds(coord)) {
@@ -132,7 +162,6 @@ public class CheckersGamestate {
 					if(leftCapture != null) {
 						leftCapture.setCapturable(true);
 						availableMoves.add(leftCapture);
-						
 					}
 					break;
 				case 2:
@@ -166,10 +195,12 @@ public class CheckersGamestate {
 		return availableMoves;
 	}
 	
-	private void capture(CheckersLocation coord) {
-		int x = coord.getX(), y = coord.getY();
+	public void capture(CheckersLocation middle, CheckersLocation end) {
+		int x = middle.getX(), y = middle.getY();
 		
 		board.getBoard()[x][y] = new CheckersPiece();
+		
+		end.setCapturable(false);
 	}
 	
 	private CheckersLocation checkCapturable(CheckersLocation coord, int xShift, int yShift) {
@@ -184,8 +215,39 @@ public class CheckersGamestate {
 		return null;	
 	}
 	
-	
+	public ArrayList<CheckersLocation> checkReCapturable(CheckersLocation coord) {
+		ArrayList<CheckersLocation> availableCoords = checkAvailableMoves(coord, board.getBoard()[coord.getY()][coord.getX()].type);
+		ArrayList<CheckersLocation> validMoves = new ArrayList<CheckersLocation>();
 
+		for(CheckersLocation element: availableCoords) {
+			if((coord.getX() + element.getX()) % 2 == 0 && (coord.getY() + element.getY()) % 2 == 0) {
+				validMoves.add(element);
+			}
+		}
+		
+		
+		
+		System.out.println("--------------\nVALID MOVES");
+		for(CheckersLocation element: validMoves)
+		{
+			System.out.println(element.getX() + "," + element.getY());
+		}
+		System.out.println("--------------");
+		return validMoves;
+		
+	}
+	
+	public CheckersLocation getMiddlePiece(CheckersLocation start, CheckersLocation end) {
+		int sX = start.getX(), sY = start.getY(), eX = end.getX(), eY = end.getY();
+		
+		if((sX + eX) % 2 == 0 && (sY + eY) % 2 == 0)
+		{
+			return new CheckersLocation((sX + eX)/2, (sY + eY)/2);
+		}
+		
+		return null;
+	}
+	
 	
 	private int checkTile(CheckersLocation coord) {
 		int x = coord.getX(), y = coord.getY();
