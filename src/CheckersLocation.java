@@ -1,3 +1,4 @@
+package checkers;
 
 public class CheckersLocation {
 	private int x;

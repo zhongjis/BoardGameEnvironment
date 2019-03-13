@@ -1,3 +1,5 @@
+package checkers;
+
 import java.util.ArrayList;
 
 public class CheckersMain {
@@ -12,7 +14,7 @@ public class CheckersMain {
 		//player one's movements : Turn 1
 		CheckersLocation selectedCoord = new CheckersLocation(5,4);
 		if(gamestate.checkValidSelection(selectedCoord)) {
-			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getY()][selectedCoord.getX()].type);
+			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
 			for(CheckersLocation element: availableCoords)
 			{
 				System.out.println(element.getX() + "," + element.getY());
@@ -26,7 +28,7 @@ public class CheckersMain {
 		//player two's movements : Turn 2
 		selectedCoord = new CheckersLocation(2,3);
 		if(gamestate.checkValidSelection(selectedCoord)) {
-			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getY()][selectedCoord.getX()].type);
+			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
 			for(CheckersLocation element: availableCoords)
 			{
 				System.out.println(element.getX() + "," + element.getY());
@@ -40,7 +42,7 @@ public class CheckersMain {
 		//player one's movements : Turn 3
 		selectedCoord = new CheckersLocation(4,3);
 		if(gamestate.checkValidSelection(selectedCoord)) {
-			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getY()][selectedCoord.getX()].type);
+			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
 			for(CheckersLocation element: availableCoords)
 			{
 				System.out.println(element.getX() + "," + element.getY());
@@ -54,7 +56,7 @@ public class CheckersMain {
 		//player two's movements : Turn 4
 		selectedCoord = new CheckersLocation(2,1);
 		if(gamestate.checkValidSelection(selectedCoord)) {
-			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getY()][selectedCoord.getX()].type);
+			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
 			for(CheckersLocation element: availableCoords)
 			{
 				System.out.println(element.getX() + "," + element.getY());
@@ -68,7 +70,7 @@ public class CheckersMain {
 		//player one's movements : Turn 5
 		selectedCoord = new CheckersLocation(6,5);
 		if(gamestate.checkValidSelection(selectedCoord)) {
-			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getY()][selectedCoord.getX()].type);
+			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
 			for(CheckersLocation element: availableCoords)
 			{
 				System.out.println(element.getX() + "," + element.getY());
@@ -118,9 +120,18 @@ public class CheckersMain {
 					break;
 			}
 		}
-		gamestate.endTurn();
 		
 		CheckersRender.renderBoard(gamestate);
+		gamestate.board.getBoard()[4][3] = new CheckersPiece(1);
+		gamestate.board.getBoard()[6][5].convertToKing();
+		selectedCoord = new CheckersLocation(6,5);
+		System.out.println("--------------");
+		availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
+		for(CheckersLocation element: availableCoords)
+		{
+			System.out.println(element.getX() + "," + element.getY());
+		}
+		
 
 		
 //		selectedCoord = new CheckersLocation(2,5);

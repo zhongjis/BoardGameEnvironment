@@ -1,3 +1,4 @@
+package checkers;
 
 public class CheckersPiece {
 	int player;
@@ -17,5 +18,9 @@ public class CheckersPiece {
 	CheckersPiece(int p, String img){
 		player = p;
 		image = img;
+	}
+	
+	public void convertToKing() {
+		this.type = "king";
 	}
 }

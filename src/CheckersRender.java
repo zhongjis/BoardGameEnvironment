@@ -1,3 +1,4 @@
+package checkers;
 
 public class CheckersRender {
 	public static void renderBoard(CheckersGamestate gamestate)
