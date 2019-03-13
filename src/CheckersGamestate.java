@@ -375,6 +375,13 @@ public class CheckersGamestate {
 		
 		board.getBoard()[x][y] = startTemp;
 		
+		if(playerTurn == 1 && coordEnd.getX() == 0){
+			board.getBoard()[x][y].convertToKing();;
+		}
+		if(playerTurn == 2 && coordEnd.getX() == 7) {
+			board.getBoard()[x][y].convertToKing();
+		}
+		
 	}
 	
 	public int checkIfEnd() {

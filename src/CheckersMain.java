@@ -130,6 +130,27 @@ public class CheckersMain {
 			System.out.println(element.getX() + "," + element.getY());
 		}
 		
+		
+		//checking for king conversion when hitting the ends
+		board.getBoard()[7][6] = new CheckersPiece();
+		board.getBoard()[6][5].type = "regular";
+		System.out.println("Before move: " + board.getBoard()[6][5].type);
+		gamestate.movePiece(new CheckersLocation(6,5), new CheckersLocation(7,6));
+		CheckersRender.renderBoard(gamestate);
+		System.out.println("After move: " + board.getBoard()[7][6].type);
+		
+		
+		gamestate.endTurn();
+		board.getBoard()[0][1] = new CheckersPiece();
+		board.getBoard()[1][2] = new CheckersPiece(1);
+		System.out.println("\nBefore move: " + board.getBoard()[6][5].type);
+		CheckersRender.renderBoard(gamestate);
+		gamestate.movePiece(new CheckersLocation(1,2), new CheckersLocation(0,1));
+		System.out.println("After move: " + board.getBoard()[0][1].type);
+
+		
+		
+		
 //		selectedCoord = new CheckersLocation(2,5);
 //		if(gamestate.checkValidSelection(selectedCoord)) {
 //			ArrayList<CheckersLocation> availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getY()][selectedCoord.getX()].type);
