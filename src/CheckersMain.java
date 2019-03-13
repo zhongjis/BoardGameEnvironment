@@ -120,17 +120,7 @@ public class CheckersMain {
 					break;
 			}
 		}
-		
-		CheckersRender.renderBoard(gamestate);
-		gamestate.board.getBoard()[4][3] = new CheckersPiece(1);
-		gamestate.board.getBoard()[6][5].convertToKing();
-		selectedCoord = new CheckersLocation(6,5);
-		System.out.println("--------------");
-		availableCoords = gamestate.checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
-		for(CheckersLocation element: availableCoords)
-		{
-			System.out.println(element.getX() + "," + element.getY());
-		}
+		gamestate.endTurn();
 		
 
 		

@@ -122,10 +122,6 @@ public class CheckersGamestate {
 			else
 				allNonCapturableMoves.add(temp.get(k));
 		}
-		for(CheckersLocation element: allCapturableMoves)
-		{
-			System.out.println(element.getX() + "," + element.getY());
-		}
 		if(allCapturableMoves.size() == 0) {
 			return allNonCapturableMoves;
 		}
@@ -155,6 +151,7 @@ public class CheckersGamestate {
 				case 2:
 					CheckersLocation leftCapture = checkCapturable(left, -1, -1);
 					if(leftCapture != null) {
+						leftCapture.setCapturable(true);
 						availableMoves.add(leftCapture);
 					}
 					break;
@@ -171,6 +168,7 @@ public class CheckersGamestate {
 				case 2:
 					CheckersLocation rightCapture = checkCapturable(right, -1, 1);
 					if(rightCapture != null) {
+						rightCapture.setCapturable(true);
 						availableMoves.add(rightCapture);
 					}
 					break;
@@ -232,8 +230,10 @@ public class CheckersGamestate {
 				availableMoves.add(left);
 			else if(playerTurn != tileType) {
 				CheckersLocation leftCapture = checkCapturable(left, -1, -1);
-				if(leftCapture != null)
+				if(leftCapture != null) {
+					leftCapture.setCapturable(true);
 					availableMoves.add(leftCapture);
+				}
 			}
 		}
 		if(checkInbounds(right)){
@@ -243,6 +243,7 @@ public class CheckersGamestate {
 			else if(playerTurn != tileType) {
 				CheckersLocation rightCapture = checkCapturable(right, -1, 1);
 				if(rightCapture != null) {
+					rightCapture.setCapturable(true);
 					availableMoves.add(rightCapture);
 				}
 			}	
@@ -293,7 +294,6 @@ public class CheckersGamestate {
 				return capturable;
 			}
 		}
-		
 		return null;	
 	}
 	
@@ -306,15 +306,6 @@ public class CheckersGamestate {
 				validMoves.add(element);
 			}
 		}
-		
-		
-		
-		System.out.println("--------------\nVALID MOVES");
-		for(CheckersLocation element: validMoves)
-		{
-			System.out.println(element.getX() + "," + element.getY());
-		}
-		System.out.println("--------------");
 		return validMoves;
 		
 	}
