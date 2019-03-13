@@ -21,7 +21,7 @@ abstract class Game {
 
   abstract void end();
 
-  abstract User checkIfWin();
+  abstract User checkIfEnd();
 
   abstract void playMove(int x, int y, User player);
 
