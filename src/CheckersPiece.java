@@ -20,7 +20,11 @@ public class CheckersPiece {
 		image = img;
 	}
 	
-	public void convertToKing() {
+	public void convertToKing(){
 		this.type = "king";
+	}
+	
+	public String getType() {
+		return type;
 	}
 }

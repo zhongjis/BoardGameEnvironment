@@ -120,9 +120,15 @@ public class CheckersMain {
 					break;
 			}
 		}
-		gamestate.endTurn();
-		
-
+		board.getBoard()[5][6] = new CheckersPiece();
+		board.getBoard()[6][5].convertToKing();
+		CheckersRender.renderBoard(gamestate);
+		System.out.println("--------------\nSTART PIECES");
+		startPieces = gamestate.startOfTurn();
+		for(CheckersLocation element: startPieces)
+		{
+			System.out.println(element.getX() + "," + element.getY());
+		}
 		
 //		selectedCoord = new CheckersLocation(2,5);
 //		if(gamestate.checkValidSelection(selectedCoord)) {

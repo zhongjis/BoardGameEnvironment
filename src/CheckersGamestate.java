@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class CheckersGamestate {
 	public int playerTurn = 1;
 	public CheckersBoard board;
+	private int playerOnePieces = 12;
+	private int playerTwoPieces = 12;
 	
 	CheckersGamestate(CheckersBoard board){
 		this.board = board;		
@@ -18,32 +20,42 @@ public class CheckersGamestate {
 	}
 	
 	public ArrayList<CheckersLocation> startOfTurn(){
-		// NEEDS ACCOMODATING FOR KING -----------------
 		// Returns list of pieces
 		ArrayList<CheckersLocation> allNonCapturableMoves = new ArrayList<CheckersLocation>();
 		ArrayList<CheckersLocation> allCapturableMoves = new ArrayList<CheckersLocation>();
 		for (int i = 0; i < board.getBoard().length; i++) {
 			for(int j = 0; j < board.getBoard()[i].length; j++) {
-				if(playerTurn == 1) {
-					if(board.getBoard()[i][j].player == 1) {
-						ArrayList<CheckersLocation> temp = checkUpMoves(new CheckersLocation(i, j));
-						for(int k = 0; k < temp.size();k++) {
-							if(temp.get(k).getCapturable())
-								allCapturableMoves.add(new CheckersLocation(i, j));
-							else
-								allNonCapturableMoves.add(new CheckersLocation(i, j));
-							break;
-						}
+				if(board.getBoard()[i][j].getType().equals("king")) {
+					ArrayList<CheckersLocation> temp = listOfKingMoves(new CheckersLocation(i, j));
+					for(int k = 0; k < temp.size();k++) {
+						if(temp.get(k).getCapturable())
+							allCapturableMoves.add(new CheckersLocation(i, j));
+						else
+							allNonCapturableMoves.add(new CheckersLocation(i, j));
+						break;
 					}
-				}else{
-					if(board.getBoard()[i][j].player == 2) {
-						ArrayList<CheckersLocation> temp = checkDownMoves(new CheckersLocation(i, j));
-						for(int k = 0; k < temp.size();k++) {
-							if(temp.get(k).getCapturable())
-								allCapturableMoves.add(new CheckersLocation(i, j));
-							else
-								allNonCapturableMoves.add(new CheckersLocation(i, j));
-							break;
+				}else {
+					if(playerTurn == 1) {
+						if(board.getBoard()[i][j].player == 1) {
+							ArrayList<CheckersLocation> temp = checkUpMoves(new CheckersLocation(i, j));
+							for(int k = 0; k < temp.size();k++) {
+								if(temp.get(k).getCapturable())
+									allCapturableMoves.add(new CheckersLocation(i, j));
+								else
+									allNonCapturableMoves.add(new CheckersLocation(i, j));
+								break;
+							}
+						}
+					}else{
+						if(board.getBoard()[i][j].player == 2) {
+							ArrayList<CheckersLocation> temp = checkDownMoves(new CheckersLocation(i, j));
+							for(int k = 0; k < temp.size();k++) {
+								if(temp.get(k).getCapturable())
+									allCapturableMoves.add(new CheckersLocation(i, j));
+								else
+									allNonCapturableMoves.add(new CheckersLocation(i, j));
+								break;
+							}
 						}
 					}
 				}
@@ -280,9 +292,12 @@ public class CheckersGamestate {
 	
 	public void capture(CheckersLocation middle, CheckersLocation end) {
 		int x = middle.getX(), y = middle.getY();
-		
 		board.getBoard()[x][y] = new CheckersPiece();
-		
+		if(playerTurn == 1) {
+			playerTwoPieces--;
+		}else {
+			playerOnePieces--;
+		}
 		end.setCapturable(false);
 	}
 	
@@ -360,6 +375,14 @@ public class CheckersGamestate {
 		
 		board.getBoard()[x][y] = startTemp;
 		
+	}
+	
+	public int checkIfEnd() {
+		if(playerOnePieces == 0) {
+			return 2;
+		}else {
+			return 1;
+		}
 	}
 	
 }
