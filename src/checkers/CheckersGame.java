@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class CheckersGame extends Game {
 	public int playerTurn = 1;
+	private int turnNumber = 1;
 	public CheckersBoard board;
 	private CheckersUser playerOne;
 	private CheckersUser playerTwo;
@@ -42,6 +43,7 @@ public class CheckersGame extends Game {
 		Scanner input = new Scanner(System.in);
 		boolean end = false;
 		while(true) {
+			System.out.println("Turn " + turnNumber);
 			renderBoard();
 			printCurrentPlayerTurn();
 			ArrayList<CheckersLocation> availablePieces = startOfTurn();
@@ -118,6 +120,7 @@ public class CheckersGame extends Game {
 					break;
 				}
 				changeTurn();
+				turnNumber++;
 			}else
 				System.out.println("Please make a valid move.");
 		}
