@@ -2,7 +2,7 @@ package BoardGameEnvironment;
 
 import java.util.Scanner;
 
-import BoardGameEnvironment.Memory.MemoryGame;
+// import BoardGameEnvironment.Memory.MemoryGame;
 
 public class Menu {
   private User[] users;
@@ -49,5 +49,8 @@ public class Menu {
         g.run();
       }
     }
+    
+    // MemoryGame game = new MemoryGame(users[0], users[1]);
+    // game.run();
   }
 }
