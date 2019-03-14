@@ -69,6 +69,10 @@ public class MemoryGame extends Game {
 	}
 
 	private void startTurn() {
+		// printing board info into console
+		System.out.println(this.board);
+		System.out.println("Player one score: " + playerOneScore);
+		System.out.println("Player one score: " + playerOneScore);
 		System.out.println("player " + this.turn + "'s Turn");
 
 		// FIXME: this will cause performance issue cuz program needs to generate a scanner every single time startTurn() is called
@@ -76,11 +80,12 @@ public class MemoryGame extends Game {
 
 		// reading the first location of the flip
 		// FIXME: needs to return error when input is out of bound
+		// FIXME: x-axis and y-axis value is opposite
 		System.out.println("Enter first x-axis: ");
 		int xOne = reader.nextInt();
 		System.out.println("Enter first y-axis: ");
 		int yOne = reader.nextInt();
-		MemoryPiece pieceOne = this.board.getPiece(xOne, yOne);
+		Piece pieceOne = this.board.getPiece(xOne, yOne);
 		
 		// reading the second location of the flip
 		System.out.println("Enter Second x-axis: ");
@@ -100,6 +105,7 @@ public class MemoryGame extends Game {
 		// checking the id of two Pieces
 		if (pieceOne.id == pieceTwo.id) {
 			// if two tiles match. replacing with playerPiece
+			System.out.println("Player " + this.turn + "scored!");
 			this.playMove(xOne, yOne, currentPlayer);
 			this.playMove(xTwo, yTwo, currentPlayer);
 			// incrementing score of the current user
