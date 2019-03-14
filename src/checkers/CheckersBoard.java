@@ -14,6 +14,7 @@ public class CheckersBoard {
 					board[i][j] = new CheckersPiece();
 			}
 		}
+		
 		for (int i = 1; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
 				if(board[i-1][j].player == 2)
@@ -39,6 +40,7 @@ public class CheckersBoard {
 					board[i][j] = new CheckersPiece();
 			}
 		}
+		
 		for (int i = 6; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
 				if(board[i-1][j].player == 1)
