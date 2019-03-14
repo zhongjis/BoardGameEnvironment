@@ -72,7 +72,7 @@ public class MemoryGame extends Game {
 		// printing board info into console
 		System.out.println(this.board);
 		System.out.println("Player one score: " + playerOneScore);
-		System.out.println("Player one score: " + playerOneScore);
+		System.out.println("Player two score: " + playerTwoScore);
 		System.out.println("player " + this.turn + "'s Turn");
 
 		// FIXME: this will cause performance issue cuz program needs to generate a scanner every single time startTurn() is called
@@ -85,14 +85,14 @@ public class MemoryGame extends Game {
 		int xOne = reader.nextInt();
 		System.out.println("Enter first y-axis: ");
 		int yOne = reader.nextInt();
-		Piece pieceOne = this.board.getPiece(xOne, yOne);
+		Piece pieceOne = this.board.getPiece(yOne, xOne);
 		
 		// reading the second location of the flip
 		System.out.println("Enter Second x-axis: ");
 		int xTwo = reader.nextInt();
 		System.out.println("Enter Second y-axis: ");
 		int yTwo = reader.nextInt();
-		Piece pieceTwo = this.board.getPiece(xTwo, yTwo);
+		Piece pieceTwo = this.board.getPiece(yTwo, xTwo);
 
 		// FIXME: feeling this step is extra due to the parameter issue with playMove
 		User currentPlayer = null;
@@ -105,7 +105,7 @@ public class MemoryGame extends Game {
 		// checking the id of two Pieces
 		if (pieceOne.id == pieceTwo.id) {
 			// if two tiles match. replacing with playerPiece
-			System.out.println("Player " + this.turn + "scored!");
+			System.out.println("Player " + this.turn + " scored!");
 			this.playMove(xOne, yOne, currentPlayer);
 			this.playMove(xTwo, yTwo, currentPlayer);
 			// incrementing score of the current user
