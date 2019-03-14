@@ -32,31 +32,6 @@ public class CheckersGame extends Game {
 	}
 	
 	public void run() {
-		board.getBoard()[0][1] = new CheckersPiece();
-		board.getBoard()[0][3] = new CheckersPiece();
-		board.getBoard()[0][5] = new CheckersPiece();
-		board.getBoard()[0][7] = new CheckersPiece();
-		board.getBoard()[1][0] = new CheckersPiece();
-		board.getBoard()[1][2] = new CheckersPiece();
-		board.getBoard()[1][4] = new CheckersPiece();
-		board.getBoard()[1][6] = new CheckersPiece();
-		board.getBoard()[2][1] = new CheckersPiece();
-		board.getBoard()[2][3] = new CheckersPiece();
-		board.getBoard()[2][5] = new CheckersPiece();
-		board.getBoard()[2][7] = new CheckersPiece();
-		
-		board.getBoard()[5][0] = new CheckersPiece();
-		board.getBoard()[5][2] = new CheckersPiece();
-		board.getBoard()[5][4] = new CheckersPiece();
-		board.getBoard()[5][6] = new CheckersPiece();
-		board.getBoard()[6][1] = new CheckersPiece();
-		board.getBoard()[6][3] = new CheckersPiece();
-		board.getBoard()[6][5] = new CheckersPiece();
-		board.getBoard()[6][7] = new CheckersPiece();
-		board.getBoard()[7][0] = new CheckersPiece();
-		board.getBoard()[7][2] = new CheckersPiece();
-		board.getBoard()[7][4] = new CheckersPiece();
-		board.getBoard()[7][6] = new CheckersPiece();
 		Scanner input = new Scanner(System.in);
 		boolean end = false;
 		while(true) {
@@ -140,6 +115,8 @@ public class CheckersGame extends Game {
 	}
 	
 	public void end() {
+		renderBoard();
+		System.out.println("Game over!");
 		if(playerTurn == 1)
 			System.out.println(playerOne.getName() + " has won!");
 		else
