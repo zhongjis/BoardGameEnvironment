@@ -5,7 +5,7 @@
 package BoardGameEnvironment;
 
 public class MemoryPiece extends Piece {
-	private Boolean matched;
+	private Boolean matched; // FIXME: this value is never used in MemoryGame 
 
 	public MemoryPiece() {
 		super(0);
