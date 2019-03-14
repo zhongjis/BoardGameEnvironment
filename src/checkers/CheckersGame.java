@@ -28,7 +28,14 @@ public class CheckersGame extends Game {
 			}
 			System.out.println();
 		}
-		System.out.println("Current Player's Turn: " + playerTurn);
+	}
+	
+	public void printCurrentPlayerTurn() {
+		System.out.print("Current Player's Turn: ");
+		if(playerTurn == 1)
+			System.out.println(playerOne.getName());
+		else
+			System.out.println(playerTwo.getName());
 	}
 	
 	public void run() {
@@ -36,18 +43,19 @@ public class CheckersGame extends Game {
 		boolean end = false;
 		while(true) {
 			renderBoard();
+			printCurrentPlayerTurn();
 			ArrayList<CheckersLocation> availablePieces = startOfTurn();
 			availablePieces = makeListUnique(availablePieces);
 			System.out.println("Availiable pieces:");
 			for(int i=0;i<availablePieces.size();i++)
 			{
-				System.out.println(i + ". " + availablePieces.get(i).getX() + "," + availablePieces.get(i).getY());
+				System.out.println((i+1) + ". " + availablePieces.get(i).getX() + "," + availablePieces.get(i).getY());
 			}
-			int choice = input.nextInt();
+			int choice = input.nextInt()-1;
 			while(!(choice >= 0 && choice < availablePieces.size())) {
 				System.out.println("Please enter a valid piece.");
 				input.reset();
-				choice = input.nextInt();
+				choice = input.nextInt()-1;
 			}
 			CheckersLocation selectedCoord = availablePieces.get(choice);
 			CheckersLocation endCoord = null;
@@ -56,40 +64,41 @@ public class CheckersGame extends Game {
 				System.out.println("Available moves:");
 				for(int i=0;i<checkMoves.size();i++)
 				{
-					System.out.println(i + ". " + checkMoves.get(i).getX() + "," + checkMoves.get(i).getY());
+					System.out.println((i+1) + ". " + checkMoves.get(i).getX() + "," + checkMoves.get(i).getY());
 				}
 				input.reset();
-				choice = input.nextInt();
+				choice = input.nextInt()-1;
 				while(!(choice >= 0 && choice < checkMoves.size())) {
 					System.out.println("Please enter a valid location.");
 					input.reset();
-					choice = input.nextInt();
+					choice = input.nextInt()-1;
 				}
 				endCoord = checkMoves.get(choice);
 				CheckersLocation middle = getMiddlePiece(selectedCoord, endCoord);
 				CheckersLocation tempCoord = null;
 				if(middle != null) {
 					tempCoord = endCoord;
-					if(capture(middle, endCoord) != null) {
+					if(capture(middle, endCoord) != null)
 						end = true;
-						break;
-					}
 					movePiece(selectedCoord, endCoord);
 					while(true) {
+						if(end)
+							break;
 						ArrayList<CheckersLocation> availableReCaptures = checkReCapturable(endCoord);
 						if(availableReCaptures.size() != 0) {
 							renderBoard();
+							printCurrentPlayerTurn();
 							System.out.println("Available moves:");
 							for(int i=0;i<availableReCaptures.size();i++)
 							{
-								System.out.println(i + ". " + availableReCaptures.get(i).getX() + "," + availableReCaptures.get(i).getY());
+								System.out.println((i+1) + ". " + availableReCaptures.get(i).getX() + "," + availableReCaptures.get(i).getY());
 							}
 							input.reset();
-							choice = input.nextInt();
+							choice = input.nextInt()-1;
 							while(!(choice >= 0 && choice < availableReCaptures.size())) {
 								System.out.println("Please enter a valid location.");
 								input.reset();
-								choice = input.nextInt();
+								choice = input.nextInt()-1;
 							}
 							endCoord = availableReCaptures.get(choice);
 							middle = getMiddlePiece(tempCoord, endCoord);
