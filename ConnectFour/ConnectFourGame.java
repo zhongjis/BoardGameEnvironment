@@ -19,8 +19,8 @@ public class ConnectFourGame extends Game
 	final int[]d7 = {-1,-1};
 	//{0,-1} not needed, because the pieces are dropped from top
 	
-	int width = 2;
-	int height = 2;
+	int width = 8;
+	int height = 8;
 	int[]yvalues;
 	int piecesOnBoard;
 	
