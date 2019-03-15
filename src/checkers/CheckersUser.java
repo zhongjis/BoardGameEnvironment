@@ -5,9 +5,8 @@ public class CheckersUser extends User{
 
 	private int pieces = 12;
 	
-	public CheckersUser(String name, int player) {
-		super(name);
-		super.playerNumber = player;	
+	public CheckersUser(String name) {
+		super(name);	
 	}
 	
 	public int getPieces() {

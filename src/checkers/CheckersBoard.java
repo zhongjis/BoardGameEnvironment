@@ -1,11 +1,15 @@
 package checkers;
 
-public class CheckersBoard {
+import BoardGameEnvironment.GameBoard;
 
-	private CheckersPiece[][] board;
+public class CheckersBoard extends GameBoard {
+	public CheckersPiece[][] board = new CheckersPiece[8][8];
 	
 	CheckersBoard(){
-		board = new CheckersPiece[8][8];
+		super(8, 8, "checkers");
+	}
+	
+	public void initializeGameBoard() {
 		for (int i = 0; i < 1; i++) {
 			for(int j = 0; j < board[i].length; j++) {
 				if(i+j % 2 == 1)
@@ -17,7 +21,7 @@ public class CheckersBoard {
 		
 		for (int i = 1; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
-				if(board[i-1][j].player == 2)
+				if(board[i-1][j].getId() == 2)
 					board[i][j] = new CheckersPiece();
 				else
 					board[i][j] = new CheckersPiece(2);
@@ -43,7 +47,7 @@ public class CheckersBoard {
 		
 		for (int i = 6; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
-				if(board[i-1][j].player == 1)
+				if(board[i-1][j].getId() == 1)
 					board[i][j] = new CheckersPiece();
 				else
 					board[i][j] = new CheckersPiece(1);

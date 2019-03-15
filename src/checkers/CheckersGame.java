@@ -8,13 +8,12 @@ public class CheckersGame extends Game {
 	public int playerTurn = 1;
 	private int turnNumber = 1;
 	public CheckersBoard board;
-	private CheckersUser playerOne;
-	private CheckersUser playerTwo;
+	private ArrayList<CheckersUser> usersList = new ArrayList<CheckersUser>();
 		
 	CheckersGame(CheckersBoard board, User playerOne, User playerTwo){
 		super(new User[] {playerOne, playerTwo});
-		this.playerOne = new CheckersUser(playerOne.getName(), 1);
-		this.playerTwo = new CheckersUser(playerTwo.getName(), 2);
+		usersList.add(new CheckersUser(playerOne.getName()));
+		usersList.add(new CheckersUser(playerTwo.getName()));
 		this.board = board;		
 	}
 	
@@ -29,19 +28,21 @@ public class CheckersGame extends Game {
 			}
 			System.out.println();
 		}
+//		board.toString();
 	}
 	
 	public void printCurrentPlayerTurn() {
 		System.out.print("Current Player's Turn: ");
 		if(playerTurn == 1)
-			System.out.println(playerOne.getName());
+			System.out.println(usersList.get(0).getName());
 		else
-			System.out.println(playerTwo.getName());
+			System.out.println(usersList.get(1).getName());
 	}
 	
 	public void run() {
 		Scanner input = new Scanner(System.in);
 		boolean end = false;
+		board.initializeGameBoard();
 		while(true) {
 			System.out.println("Turn " + turnNumber);
 			renderBoard();
@@ -130,27 +131,27 @@ public class CheckersGame extends Game {
 		renderBoard();
 		System.out.println("Game over!");
 		if(playerTurn == 1)
-			System.out.println(playerOne.getName() + " has won!");
+			System.out.println(usersList.get(0).getName() + " has won!");
 		else
-			System.out.println(playerTwo.getName() + " has won!");
+			System.out.println(usersList.get(1).getName() + " has won!");
 	}
 	
 	public User checkIfEnd() {
-		if(playerOne.getPieces() == 0)
-			return playerTwo;
-		else if(playerTwo.getPieces() == 0)
-			return playerOne;
+		if(usersList.get(0).getPieces() == 0)
+			return usersList.get(0);
+		else if(usersList.get(1).getPieces() == 0)
+			return usersList.get(1);
 		return null;
 	}
 	
 	public User changeTurn() {
 		if (playerTurn == 1) {
 			playerTurn = 2;
-			return playerTwo;
+			return usersList.get(1);
 		}
 		else {
 			playerTurn = 1;
-			return playerOne;
+			return usersList.get(0);
 		}
 	}
 	
@@ -442,9 +443,9 @@ public class CheckersGame extends Game {
 		int x = middle.getX(), y = middle.getY();
 		board.getBoard()[x][y] = new CheckersPiece();
 		if(playerTurn == 1) {
-			playerTwo.decrementPieces();
+			usersList.get(0).decrementPieces();
 		}else {
-			playerOne.decrementPieces();
+			usersList.get(1).decrementPieces();
 		}
 		end.setCapturable(false);
 		return checkIfEnd();
@@ -454,7 +455,7 @@ public class CheckersGame extends Game {
 		int x = coord.getX(), y = coord.getY();
 		CheckersLocation capturable = new CheckersLocation(coord.getX() + xShift, coord.getY() + yShift);
 		if(checkInbounds(capturable)) {
-			if(board.getBoard()[capturable.getX()][capturable.getY()].player == 0) {
+			if(board.getBoard()[capturable.getX()][capturable.getY()].getId() == 0) {
 				return capturable;
 			}
 		}
@@ -491,9 +492,9 @@ public class CheckersGame extends Game {
 	
 	private int checkTile(CheckersLocation coord) {
 		int x = coord.getX(), y = coord.getY();
-		if(board.getBoard()[x][y].player == 0)
+		if(board.getBoard()[x][y].getId() == 0)
 			return 0;
-		else if(board.getBoard()[x][y].player == 1)
+		else if(board.getBoard()[x][y].getId() == 1)
 			return 1;		
 		else
 			return 2;
