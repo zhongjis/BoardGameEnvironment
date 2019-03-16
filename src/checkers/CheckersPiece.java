@@ -2,24 +2,21 @@ package checkers;
 import BoardGameEnvironment.Piece;
 
 public class CheckersPiece extends Piece{
-	int player;
-	String image;
-	String type = "regular";
+	private String image;
+	private String type = "regular";
 	
 	public CheckersPiece(){
-		super.setId(0);
-		player = 0;
-		image = Integer.toString(player);
+		super();
+		image = Integer.toString(getId());
 	}
 	
 	CheckersPiece(int p){
-		super.setId(p);
-		player = p;
-		image = Integer.toString(player);
+		super(p);
+		image = Integer.toString(getId());
 	}
 	
 	CheckersPiece(int p, String img){
-		player = p;
+		super(p);
 		image = img;
 	}
 	

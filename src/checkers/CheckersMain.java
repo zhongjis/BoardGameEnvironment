@@ -3,8 +3,6 @@ package checkers;
 import java.util.ArrayList;
 import BoardGameEnvironment.User;
 public class CheckersMain {
-
-	
 	public static void main(String[] args)
 	{
 		CheckersBoard board = new CheckersBoard();
