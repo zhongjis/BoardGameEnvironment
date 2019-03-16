@@ -49,8 +49,7 @@ public class CheckersGame extends Game {
 			CheckersLocation selectedCoord = availablePieces.get(choice);
 			CheckersLocation endCoord = null;
 			if(checkValidSelection(availablePieces.get(choice))){
-				CheckersPiece selectedPiece = board.getPiece(selectedCoord.getX(), selectedCoord.getY());
-				ArrayList<CheckersLocation> checkMoves = checkAvailableMoves(selectedCoord, selectedPiece.getType());
+				ArrayList<CheckersLocation> checkMoves = checkAvailableMoves(selectedCoord, board.getPiece(selectedCoord.getX(), selectedCoord.getY()).getType());
 				System.out.println("Available moves:");
 				for(int i=0;i<checkMoves.size();i++)
 				{
