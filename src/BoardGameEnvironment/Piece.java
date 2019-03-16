@@ -7,7 +7,6 @@ package BoardGameEnvironment;
 
 public class Piece {
 	protected int id;
-	protected User user;
 
 	public Piece() {
 		this.id = 0;
@@ -23,10 +22,6 @@ public class Piece {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public User getUser() {
-		return user;
 	}
 
 	// @Override

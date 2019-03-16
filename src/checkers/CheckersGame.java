@@ -5,116 +5,88 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CheckersGame extends Game {
-	public int playerTurn = 1;
-	public CheckersBoard board;
-	private CheckersUser playerOne;
-	private CheckersUser playerTwo;
+	protected boolean end = false;
+	protected int playerTurn = 1;
+	protected int turnNumber = 1;
+	protected CheckersBoard board;
+	private ArrayList<CheckersUser> usersList = new ArrayList<CheckersUser>();
 		
 	CheckersGame(CheckersBoard board, User playerOne, User playerTwo){
 		super(new User[] {playerOne, playerTwo});
-		this.playerOne = new CheckersUser(playerOne.getName(), 1);
-		this.playerTwo = new CheckersUser(playerTwo.getName(), 2);
+		usersList.add(new CheckersUser(playerOne.getName()));
+		usersList.add(new CheckersUser(playerTwo.getName()));
 		this.board = board;		
 	}
 	
-	public void renderBoard()
-	{
-		System.out.println("   0 1 2 3 4 5 6 7");
-		System.out.println("   ---------------");
-		for (int i = 0; i < board.getBoard().length; i++) {
-			System.out.print( i + "| ");
-			for(int j = 0; j < board.getBoard()[i].length; j++) {
-				System.out.print(board.getBoard()[i][j].image + " ");
-			}
-			System.out.println();
-		}
-		System.out.println("Current Player's Turn: " + playerTurn);
+	public void printCurrentPlayerTurn() {
+		System.out.print("Current Player's Turn: ");
+		if(playerTurn == 1)
+			System.out.println(usersList.get(0).getName());
+		else
+			System.out.println(usersList.get(1).getName());
 	}
 	
 	public void run() {
-		board.getBoard()[0][1] = new CheckersPiece();
-		board.getBoard()[0][3] = new CheckersPiece();
-		board.getBoard()[0][5] = new CheckersPiece();
-		board.getBoard()[0][7] = new CheckersPiece();
-		board.getBoard()[1][0] = new CheckersPiece();
-		board.getBoard()[1][2] = new CheckersPiece();
-		board.getBoard()[1][4] = new CheckersPiece();
-		board.getBoard()[1][6] = new CheckersPiece();
-		board.getBoard()[2][1] = new CheckersPiece();
-		board.getBoard()[2][3] = new CheckersPiece();
-		board.getBoard()[2][5] = new CheckersPiece();
-		board.getBoard()[2][7] = new CheckersPiece();
-		
-		board.getBoard()[5][0] = new CheckersPiece();
-		board.getBoard()[5][2] = new CheckersPiece();
-		board.getBoard()[5][4] = new CheckersPiece();
-		board.getBoard()[5][6] = new CheckersPiece();
-		board.getBoard()[6][1] = new CheckersPiece();
-		board.getBoard()[6][3] = new CheckersPiece();
-		board.getBoard()[6][5] = new CheckersPiece();
-		board.getBoard()[6][7] = new CheckersPiece();
-		board.getBoard()[7][0] = new CheckersPiece();
-		board.getBoard()[7][2] = new CheckersPiece();
-		board.getBoard()[7][4] = new CheckersPiece();
-		board.getBoard()[7][6] = new CheckersPiece();
 		Scanner input = new Scanner(System.in);
-		boolean end = false;
 		while(true) {
-			renderBoard();
+			System.out.println("Turn " + turnNumber);
+			System.out.print(board.toString());
+			printCurrentPlayerTurn();
 			ArrayList<CheckersLocation> availablePieces = startOfTurn();
 			availablePieces = makeListUnique(availablePieces);
 			System.out.println("Availiable pieces:");
 			for(int i=0;i<availablePieces.size();i++)
 			{
-				System.out.println(i + ". " + availablePieces.get(i).getX() + "," + availablePieces.get(i).getY());
+				System.out.println((i+1) + ". " + availablePieces.get(i).getX() + "," + availablePieces.get(i).getY());
 			}
-			int choice = input.nextInt();
+			int choice = input.nextInt()-1;
 			while(!(choice >= 0 && choice < availablePieces.size())) {
 				System.out.println("Please enter a valid piece.");
 				input.reset();
-				choice = input.nextInt();
+				choice = input.nextInt()-1;
 			}
 			CheckersLocation selectedCoord = availablePieces.get(choice);
 			CheckersLocation endCoord = null;
 			if(checkValidSelection(availablePieces.get(choice))){
-				ArrayList<CheckersLocation> checkMoves = checkAvailableMoves(selectedCoord, board.getBoard()[selectedCoord.getX()][selectedCoord.getY()].type);
+				ArrayList<CheckersLocation> checkMoves = checkAvailableMoves(selectedCoord, board.getPiece(selectedCoord.getX(), selectedCoord.getY()).getType());
 				System.out.println("Available moves:");
 				for(int i=0;i<checkMoves.size();i++)
 				{
-					System.out.println(i + ". " + checkMoves.get(i).getX() + "," + checkMoves.get(i).getY());
+					System.out.println((i+1) + ". " + checkMoves.get(i).getX() + "," + checkMoves.get(i).getY());
 				}
 				input.reset();
-				choice = input.nextInt();
+				choice = input.nextInt()-1;
 				while(!(choice >= 0 && choice < checkMoves.size())) {
 					System.out.println("Please enter a valid location.");
 					input.reset();
-					choice = input.nextInt();
+					choice = input.nextInt()-1;
 				}
 				endCoord = checkMoves.get(choice);
 				CheckersLocation middle = getMiddlePiece(selectedCoord, endCoord);
 				CheckersLocation tempCoord = null;
 				if(middle != null) {
 					tempCoord = endCoord;
-					if(capture(middle, endCoord) != null) {
+					if(capture(middle, endCoord) != null)
 						end = true;
-						break;
-					}
 					movePiece(selectedCoord, endCoord);
 					while(true) {
+						if(end)
+							break;
 						ArrayList<CheckersLocation> availableReCaptures = checkReCapturable(endCoord);
 						if(availableReCaptures.size() != 0) {
-							renderBoard();
+							System.out.print(board.toString());
+							printCurrentPlayerTurn();
 							System.out.println("Available moves:");
 							for(int i=0;i<availableReCaptures.size();i++)
 							{
-								System.out.println(i + ". " + availableReCaptures.get(i).getX() + "," + availableReCaptures.get(i).getY());
+								System.out.println((i+1) + ". " + availableReCaptures.get(i).getX() + "," + availableReCaptures.get(i).getY());
 							}
 							input.reset();
-							choice = input.nextInt();
+							choice = input.nextInt()-1;
 							while(!(choice >= 0 && choice < availableReCaptures.size())) {
 								System.out.println("Please enter a valid location.");
 								input.reset();
-								choice = input.nextInt();
+								choice = input.nextInt()-1;
 							}
 							endCoord = availableReCaptures.get(choice);
 							middle = getMiddlePiece(tempCoord, endCoord);
@@ -134,34 +106,37 @@ public class CheckersGame extends Game {
 					break;
 				}
 				changeTurn();
+				turnNumber++;
 			}else
 				System.out.println("Please make a valid move.");
 		}
 	}
 	
 	public void end() {
+		System.out.print(board.toString());
+		System.out.println("Game over!");
 		if(playerTurn == 1)
-			System.out.println(playerOne.getName() + " has won!");
+			System.out.println(usersList.get(0).getName() + " has won!");
 		else
-			System.out.println(playerTwo.getName() + " has won!");
+			System.out.println(usersList.get(1).getName() + " has won!");
 	}
 	
 	public User checkIfEnd() {
-		if(playerOne.getPieces() == 0)
-			return playerTwo;
-		else if(playerTwo.getPieces() == 0)
-			return playerOne;
+		if(usersList.get(0).getPieces() == 0)
+			return usersList.get(0);
+		else if(usersList.get(1).getPieces() == 0)
+			return usersList.get(1);
 		return null;
 	}
 	
 	public User changeTurn() {
 		if (playerTurn == 1) {
 			playerTurn = 2;
-			return playerTwo;
+			return usersList.get(1);
 		}
 		else {
 			playerTurn = 1;
-			return playerOne;
+			return usersList.get(0);
 		}
 	}
 	
@@ -173,15 +148,15 @@ public class CheckersGame extends Game {
 	public void movePiece(CheckersLocation coordStart, CheckersLocation coordEnd)
 	{
 		int sX = coordStart.getX(), sY = coordStart.getY(), eX = coordEnd.getX(), eY = coordEnd.getY();
-		CheckersPiece startTemp = board.getBoard()[sX][sY];
-		CheckersPiece endTemp = board.getBoard()[eX][eY];
-		board.getBoard()[sX][sY]= endTemp;
-		board.getBoard()[eX][eY] = startTemp;
+		CheckersPiece startTemp = board.getPiece(sX, sY);
+		CheckersPiece endTemp = board.getPiece(eX, eY);
+		board.getBoardArray()[sX][sY]= endTemp;
+		board.getBoardArray()[eX][eY] = startTemp;
 		if(playerTurn == 1 && coordEnd.getX() == 0){
-			board.getBoard()[eX][eY].convertToKing();
+			board.getPiece(eX, eY).convertToKing();
 		}
-		if(playerTurn == 2 && coordEnd.getX() == 7) {
-			board.getBoard()[eX][eY].convertToKing();
+		else if(playerTurn == 2 && coordEnd.getX() == 7) {
+			board.getPiece(eX, eY).convertToKing();
 		}
 	}
 	
@@ -189,11 +164,11 @@ public class CheckersGame extends Game {
 		// Returns list of pieces
 		ArrayList<CheckersLocation> allNonCapturableMoves = new ArrayList<CheckersLocation>();
 		ArrayList<CheckersLocation> allCapturableMoves = new ArrayList<CheckersLocation>();
-		for (int i = 0; i < board.getBoard().length; i++) {
-			for(int j = 0; j < board.getBoard()[i].length; j++) {
+		for (int i = 0; i < board.getBoardArray().length; i++) {
+			for(int j = 0; j < board.getBoardArray()[i].length; j++) {
 				if(playerTurn == 1) {
-					if(board.getBoard()[i][j].player == 1) {
-						if(board.getBoard()[i][j].getType().equals("king")) {
+					if(board.getBoardArray()[i][j].getId() == 1) {
+						if(board.getPiece(i, j).getType().equals("king")) {
 							ArrayList<CheckersLocation> temp = listOfKingMoves(new CheckersLocation(i, j));
 							for(int k = 0; k < temp.size();k++) {
 								if(temp.get(k).getCapturable())
@@ -212,8 +187,8 @@ public class CheckersGame extends Game {
 						}
 					}
 				}else{
-					if(board.getBoard()[i][j].player == 2) {
-						if(board.getBoard()[i][j].getType().equals("king")) {
+					if(board.getBoardArray()[i][j].getId() == 2) {
+						if(board.getPiece(i, j).getType().equals("king")) {
 							ArrayList<CheckersLocation> temp = listOfKingMoves(new CheckersLocation(i, j));
 							for(int k = 0; k < temp.size();k++) {
 								if(temp.get(k).getCapturable())
@@ -240,14 +215,6 @@ public class CheckersGame extends Game {
 		else {
 			return allCapturableMoves;
 		}
-	}
-	
-	public boolean checkValidSelection(CheckersLocation coord) {
-		int x = coord.getX(), y = coord.getY();
-		if(!checkInbounds(coord)) {
-			return false;
-		}
-		return board.getBoard()[x][y].player == playerTurn;
 	}
 	
 	public ArrayList<CheckersLocation> checkAvailableMoves(CheckersLocation coord, String type){
@@ -451,11 +418,11 @@ public class CheckersGame extends Game {
 	
 	public User capture(CheckersLocation middle, CheckersLocation end) {
 		int x = middle.getX(), y = middle.getY();
-		board.getBoard()[x][y] = new CheckersPiece();
+		board.getBoardArray()[x][y] = new CheckersPiece();
 		if(playerTurn == 1) {
-			playerTwo.decrementPieces();
+			usersList.get(0).decrementPieces();
 		}else {
-			playerOne.decrementPieces();
+			usersList.get(1).decrementPieces();
 		}
 		end.setCapturable(false);
 		return checkIfEnd();
@@ -465,7 +432,7 @@ public class CheckersGame extends Game {
 		int x = coord.getX(), y = coord.getY();
 		CheckersLocation capturable = new CheckersLocation(coord.getX() + xShift, coord.getY() + yShift);
 		if(checkInbounds(capturable)) {
-			if(board.getBoard()[capturable.getX()][capturable.getY()].player == 0) {
+			if(board.getBoardArray()[capturable.getX()][capturable.getY()].getId() == 0) {
 				return capturable;
 			}
 		}
@@ -473,13 +440,8 @@ public class CheckersGame extends Game {
 	}
 	
 	public ArrayList<CheckersLocation> checkReCapturable(CheckersLocation coord) {
-		ArrayList<CheckersLocation> availableCoords = null;
-		if(board.getBoard()[coord.getX()][coord.getY()].type.equals("regular"))
-			availableCoords = checkAvailableMoves(coord, board.getBoard()[coord.getY()][coord.getX()].type);
-		else
-			availableCoords = listOfKingMoves(coord);
+		ArrayList<CheckersLocation> availableCoords = checkAvailableMoves(coord, board.getPiece(coord.getX(), coord.getY()).getType());
 		ArrayList<CheckersLocation> validMoves = new ArrayList<CheckersLocation>();
-
 		for(CheckersLocation element: availableCoords) {
 			if((coord.getX() + element.getX()) % 2 == 0 && (coord.getY() + element.getY()) % 2 == 0) {
 				validMoves.add(element);
@@ -491,28 +453,33 @@ public class CheckersGame extends Game {
 	
 	public CheckersLocation getMiddlePiece(CheckersLocation start, CheckersLocation end) {
 		int sX = start.getX(), sY = start.getY(), eX = end.getX(), eY = end.getY();
-		
-		if((sX + eX) % 2 == 0 && (sY + eY) % 2 == 0)
-		{
+		if((sX + eX) % 2 == 0 && (sY + eY) % 2 == 0){
 			return new CheckersLocation((sX + eX)/2, (sY + eY)/2);
 		}
-		
 		return null;
 	}
 	
 	private int checkTile(CheckersLocation coord) {
 		int x = coord.getX(), y = coord.getY();
-		if(board.getBoard()[x][y].player == 0)
+		if(board.getBoardArray()[x][y].getId() == 0)
 			return 0;
-		else if(board.getBoard()[x][y].player == 1)
+		else if(board.getBoardArray()[x][y].getId() == 1)
 			return 1;		
 		else
 			return 2;
 	}
 	
+	public boolean checkValidSelection(CheckersLocation coord) {
+		int x = coord.getX(), y = coord.getY();
+		if(!checkInbounds(coord)) {
+			return false;
+		}
+		return board.getBoardArray()[x][y].getId() == playerTurn;
+	}
+	
 	private boolean checkInbounds(CheckersLocation coord) {
 		int x = coord.getX(), y = coord.getY();
-		if(x < 0 || x > board.getBoard().length-1 || y < 0 || y > board.getBoard().length-1) {
+		if(x < 0 || x > board.getBoardArray().length-1 || y < 0 || y > board.getBoardArray().length-1) {
 			return false;
 		}
 		return true;
@@ -520,7 +487,7 @@ public class CheckersGame extends Game {
 	
 	public String checkType(CheckersLocation coord){
 		int x = coord.getX(), y = coord.getY();
-		return board.getBoard()[x][y].type;
+		return board.getPiece(x, y).getType();
 	}
 	
 	public ArrayList<CheckersLocation> makeListUnique(ArrayList<CheckersLocation> list){
