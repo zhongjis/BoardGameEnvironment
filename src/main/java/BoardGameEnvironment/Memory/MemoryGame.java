@@ -64,12 +64,12 @@ public class MemoryGame extends Game {
 		int[] firstXY = askPieceWhere(1);
 		int xOne = firstXY[0];
 		int yOne = firstXY[1];
-		Piece pieceOne = this.board.getPiece(yOne, xOne);
+		Piece pieceOne = this.board.getPiece(xOne, yOne);
 
 		int[] secondXY = askPieceWhere(2);
 		int xTwo = secondXY[0];
 		int yTwo = secondXY[1];
-		Piece pieceTwo = this.board.getPiece(yTwo, xTwo);
+		Piece pieceTwo = this.board.getPiece(xTwo, yTwo);
 
 		// FIXME: feeling this step is extra due to the parameter issue with playMove
 		User currentPlayer = null;
@@ -84,8 +84,8 @@ public class MemoryGame extends Game {
 			// if two tiles match. replacing with playerPiece
 			System.out.println("Scored!");
 
-			this.playMove(yOne, xOne, currentPlayer);
-			this.playMove(yTwo, xTwo, currentPlayer);
+			this.playMove(xOne, yOne, currentPlayer);
+			this.playMove(xTwo, yTwo, currentPlayer);
 			// incrementing score of the current user
 			if (this.turn == 0) {
 				this.playerOneScore++;
@@ -157,9 +157,9 @@ public class MemoryGame extends Game {
 		// reading the location of the tile that user wants to flip
 		// FIXME: needs to return error when input is out of bound
 		// FIXME: x-axis and y-axis value is opposite
-		System.out.println("Enter x-axis: ");
+		System.out.println("Enter row number: ");
 		int x = reader.nextInt();
-		System.out.println("Enter y-axis: ");
+		System.out.println("Enter column number: ");
 		int y = reader.nextInt();
 		return new int[]{x, y};
 	}
