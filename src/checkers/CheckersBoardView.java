@@ -23,12 +23,12 @@ public class CheckersBoardView extends JComponent{
 	private CheckersLocation reCapture = null;
 	
 	public CheckersBoardView(CheckersGame gameState) {
+		this.gameState = gameState;
 		for(int row = 0; row < checkersPieces.length; row++) {
 			for(int col = 0; col < checkersPieces[row].length; col++) {
 				checkersPieces[row][col] = new CheckersPieceView(gameState.board.getPiece(row, col));
 			}
 		}
-		this.gameState = gameState;
 		dimSize = new Dimension(BOARDDIM, BOARDDIM);
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
@@ -87,8 +87,10 @@ public class CheckersBoardView extends JComponent{
 						ArrayList<CheckersLocation> availableReCaptures = gameState.checkReCapturable(reCapture);
 						if(checkInList(drop, availableReCaptures)){
 							CheckersLocation middle = gameState.getMiddlePiece(reCapture, drop);
-							if(gameState.capture(middle, drop) != null)
+							if(gameState.capture(middle, drop) != null) {
+								gameState.movePiece(reCapture, drop);
 								gameState.end = true;
+							}
 							else {
 								gameState.movePiece(reCapture, drop);
 								reCapture = drop;
@@ -98,7 +100,6 @@ public class CheckersBoardView extends JComponent{
 									reCapture = null;
 									gameState.changeTurn();
 								}
-								gameState.turnNumber++;
 							}
 						}
 					}
