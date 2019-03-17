@@ -68,6 +68,26 @@ public class MemoryGame extends Game {
 		}
 	}
 
+	int[] askPieceWhere(int index) {
+		// FIXME: this will cause performance issue cuz program needs to generate a scanner every single time startTurn() is called
+		Scanner reader = new Scanner(System.in);
+
+		if (index == 1) {
+			System.out.println("Choosing first tile...");
+		} else {
+			System.out.println("Choosing second tile...");
+		}
+
+		// reading the location of the tile that user wants to flip
+		// FIXME: needs to return error when input is out of bound
+		// FIXME: x-axis and y-axis value is opposite
+		System.out.println("Enter x-axis: ");
+		int x = reader.nextInt();
+		System.out.println("Enter y-axis: ");
+		int y = reader.nextInt();
+		return new int[]{x, y};
+	}
+
 	private void startTurn() {
 		// printing board info into console
 		System.out.println(this.board);
@@ -75,23 +95,14 @@ public class MemoryGame extends Game {
 		System.out.println("Player two score: " + playerTwoScore);
 		System.out.println("player " + this.turn + "'s Turn");
 
-		// FIXME: this will cause performance issue cuz program needs to generate a scanner every single time startTurn() is called
-		Scanner reader = new Scanner(System.in);
-
-		// reading the first location of the flip
-		// FIXME: needs to return error when input is out of bound
-		// FIXME: x-axis and y-axis value is opposite
-		System.out.println("Enter first x-axis: ");
-		int xOne = reader.nextInt();
-		System.out.println("Enter first y-axis: ");
-		int yOne = reader.nextInt();
+		int[] firstXY = askPieceWhere(1);
+		int xOne = firstXY[0];
+		int yOne = firstXY[1];
 		Piece pieceOne = this.board.getPiece(yOne, xOne);
-		
-		// reading the second location of the flip
-		System.out.println("Enter Second x-axis: ");
-		int xTwo = reader.nextInt();
-		System.out.println("Enter Second y-axis: ");
-		int yTwo = reader.nextInt();
+
+		int[] secondXY = askPieceWhere(2);
+		int xTwo = secondXY[0];
+		int yTwo = secondXY[1];
 		Piece pieceTwo = this.board.getPiece(yTwo, xTwo);
 
 		// FIXME: feeling this step is extra due to the parameter issue with playMove
