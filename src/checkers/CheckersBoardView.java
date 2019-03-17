@@ -37,12 +37,21 @@ public class CheckersBoardView extends JComponent{
 				int boardX = (int)Math.floor(x/100.0);
 				int boardY = (int)Math.floor(y/100.0);
 				CheckersLocation click = new CheckersLocation(boardY, boardX);
-				ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
-				if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
-					draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
-					oldX = boardX;
-					oldY = boardY;
-					dragging = true;
+				if(reCapture == null) {
+					ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
+					if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
+						draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
+						oldX = boardX;
+						oldY = boardY;
+						dragging = true;
+					}
+				}else {
+					if(gameState.checkValidSelection(click) && click.getX() == reCapture.getX() && click.getY() == reCapture.getY()) {
+						draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
+						oldX = boardX;
+						oldY = boardY;
+						dragging = true;
+					}
 				}
 			}
 			
