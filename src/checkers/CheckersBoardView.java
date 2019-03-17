@@ -38,9 +38,7 @@ public class CheckersBoardView extends JComponent{
 				ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
 				CheckersLocation click = new CheckersLocation(boardY, boardX);
 				if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
-					draggingPiece = new CheckersPieceView(new CheckersPiece());
-					draggingPiece.x = boardX*SQUAREDIM;
-					draggingPiece.y = boardY*SQUAREDIM;
+					draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
 					oldX = boardX;
 					oldY = boardY;
 					dragging = true;
@@ -70,9 +68,9 @@ public class CheckersBoardView extends JComponent{
 						
 					}else
 						gameState.movePiece(oldClick, drop);
-					if(gameState.end) {
+					if(gameState.end) {	// change this if block to actually end the game
 						gameState.end(); 
-						return;	// change this if block to actually end the game
+						return;
 					}
 					gameState.changeTurn();
 					gameState.turnNumber++;
