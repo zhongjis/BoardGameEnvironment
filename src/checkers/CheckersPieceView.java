@@ -1,6 +1,7 @@
 package checkers;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Font;
 
 public class CheckersPieceView {
 	protected int x;
@@ -30,8 +31,10 @@ public class CheckersPieceView {
 			g.setColor(Color.WHITE);
 			g.drawOval(x, y, DIMENSION, DIMENSION);
 		}
-		if(piece.getType().equals("king"))
-			g.drawString("KING", x+50, y+50);
+		if(piece.getType().equals("king")) {
+			g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+			g.drawString("KING", x+35, y+55);
+		}
 	}
 	
 }

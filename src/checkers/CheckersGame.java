@@ -9,7 +9,7 @@ public class CheckersGame extends Game {
 	protected int playerTurn = 1;
 	protected int turnNumber = 1;
 	protected CheckersBoard board;
-	private ArrayList<CheckersUser> usersList = new ArrayList<CheckersUser>();
+	protected ArrayList<CheckersUser> usersList = new ArrayList<CheckersUser>();
 		
 	CheckersGame(CheckersBoard board, User playerOne, User playerTwo){
 		super(new User[] {playerOne, playerTwo});

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -32,25 +33,27 @@ public class CheckersBoardView extends JComponent{
 		dimSize = new Dimension(BOARDDIM, BOARDDIM);
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
-				int x = me.getX();
-				int y = me.getY();
-				int boardX = (int)Math.floor(x/100.0);
-				int boardY = (int)Math.floor(y/100.0);
-				CheckersLocation click = new CheckersLocation(boardY, boardX);
-				if(reCapture == null) {
-					ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
-					if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
-						draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
-						oldX = boardX;
-						oldY = boardY;
-						dragging = true;
-					}
-				}else {
-					if(gameState.checkValidSelection(click) && click.getX() == reCapture.getX() && click.getY() == reCapture.getY()) {
-						draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
-						oldX = boardX;
-						oldY = boardY;
-						dragging = true;
+				if(!gameState.end) {
+					int x = me.getX();
+					int y = me.getY();
+					int boardX = (int)Math.floor(x/100.0);
+					int boardY = (int)Math.floor(y/100.0);
+					CheckersLocation click = new CheckersLocation(boardY, boardX);
+					if(reCapture == null) {
+						ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
+						if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
+							draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
+							oldX = boardX;
+							oldY = boardY;
+							dragging = true;
+						}
+					}else {
+						if(gameState.checkValidSelection(click) && click.getX() == reCapture.getX() && click.getY() == reCapture.getY()) {
+							draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
+							oldX = boardX;
+							oldY = boardY;
+							dragging = true;
+						}
 					}
 				}
 			}
@@ -78,8 +81,10 @@ public class CheckersBoardView extends JComponent{
 								reCapture = drop;
 						}
 						gameState.movePiece(oldClick, drop);
-						if(reCapture == null)
-							gameState.changeTurn();
+						if(!gameState.end) {
+							if(reCapture == null)
+								gameState.changeTurn();
+						}
 						gameState.turnNumber++;
 					}
 				}else {
@@ -107,8 +112,8 @@ public class CheckersBoardView extends JComponent{
 				updateGameViewBoard();
 				repaint();
 				draggingPiece = null;
-				if(gameState.end) {	// change this if block to actually end the game
-					gameState.end(); 
+				if(gameState.end) {
+					repaint();
 					return;
 				}
 			}
@@ -127,6 +132,19 @@ public class CheckersBoardView extends JComponent{
 		});
 	}
 	
+	public void paintGameOver(Graphics g) {
+		g.setFont(new Font("TimesRoman", Font.BOLD, 72));
+		g.setColor(new Color(37, 53, 255, 255));
+		g.drawString("GAME OVER", 180, 425);
+		g.setFont(new Font("TimesRoman", Font.BOLD, 48));
+		g.setColor(new Color(37, 197, 70, 255));
+		if(gameState.playerTurn == 1)
+			g.drawString(gameState.usersList.get(0).getName(), 300, 485);
+		else
+			g.drawString(gameState.usersList.get(1).getName(), 300, 485);
+		g.drawString("WINS", 335, 545);
+	}
+	
 	@Override
 	public Dimension getPreferredSize() {
 		return dimSize;
@@ -136,6 +154,8 @@ public class CheckersBoardView extends JComponent{
 	protected void paintComponent(Graphics g) {
 		paintCheckersBoard(g);
 		paintCheckersPieces(g);
+		if(gameState.end)
+			paintGameOver(g);
 	}
 	
 	private void paintCheckersPieces(Graphics g) {		
@@ -155,11 +175,33 @@ public class CheckersBoardView extends JComponent{
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		for(int row=0;row<8;row++) {
-			g.setColor(((row % 2) == 0) ? Color.WHITE : Color.BLACK);
-			for(int col=0;col<8;col++) {
-				g.fillRect(col * SQUAREDIM, row * SQUAREDIM, SQUAREDIM, SQUAREDIM);
-				g.setColor((g.getColor() == Color.WHITE) ? Color.BLACK : Color.WHITE);
+			if(!gameState.end) {
+				g.setColor(((row % 2) == 0) ? Color.WHITE : Color.BLACK);
+				for(int col=0;col<8;col++) {
+					g.fillRect(col * SQUAREDIM, row * SQUAREDIM, SQUAREDIM, SQUAREDIM);
+					g.setColor((g.getColor() == Color.WHITE) ? Color.BLACK : Color.WHITE);
+				}
+			}else {
+				Color newWhite = new Color(255, 255, 255, 175);
+				Color newBlack = new Color(0, 0, 0, 175);
+				g.setColor(((row % 2) == 0) ? newWhite : newBlack);
+				for(int col=0;col<8;col++) {
+					g.fillRect(col * SQUAREDIM, row * SQUAREDIM, SQUAREDIM, SQUAREDIM);
+					g.setColor((g.getColor() == newWhite) ? newBlack : newWhite);
+				}
 			}
+		}
+		g.setFont(new Font("TimesRoman", Font.BOLD, 18));
+		g.setColor(new Color(1, 135, 7, 255));
+		g.drawString("TURN:", 4, 17);
+		g.drawString(Integer.toString(gameState.turnNumber), 64, 17);
+		if(gameState.playerTurn == 1) {
+			g.setColor(Color.BLACK);
+			g.drawString(gameState.usersList.get(0).getName(), 4, 37);
+		}
+		else {
+			g.setColor(Color.RED);
+			g.drawString(gameState.usersList.get(1).getName(), 4, 37);
 		}
 	}
 	
