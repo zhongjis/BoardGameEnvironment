@@ -113,7 +113,7 @@ public class MemoryGame extends Game {
 			currentPlayer = this.players[1];
 		}
 
-		// checking the id of two Pieces
+		// comparing the id of two Pieces
 		if (pieceOne.id == pieceTwo.id) {
 			// if two tiles match. replacing with playerPiece
 			System.out.println("Player " + this.turn + " scored!");
