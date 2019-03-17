@@ -38,11 +38,11 @@ public class CheckersBoardView extends JComponent{
 				ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
 				CheckersLocation click = new CheckersLocation(boardY, boardX);
 				if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
-					draggingPiece = checkersPieces[boardY][boardX];
+					draggingPiece = new CheckersPieceView(new CheckersPiece());
+					draggingPiece.x = boardX*SQUAREDIM;
+					draggingPiece.y = boardY*SQUAREDIM;
 					oldX = boardX;
 					oldY = boardY;
-					checkersPieces[boardY][boardX].x = x;
-					checkersPieces[boardY][boardX].y = y;
 					dragging = true;
 				}
 			}
@@ -67,17 +67,19 @@ public class CheckersBoardView extends JComponent{
 						if(gameState.capture(middle, drop) != null)
 							gameState.end = true;
 						gameState.movePiece(oldClick, drop);
+						
 					}else
 						gameState.movePiece(oldClick, drop);
 					if(gameState.end) {
-						gameState.end();
-						return;
+						gameState.end(); 
+						return;	// change this if block to actually end the game
 					}
 					gameState.changeTurn();
 					gameState.turnNumber++;
 				}
 				updateGameViewBoard();
 				repaint();
+				draggingPiece = null;
 			}
 		});
 		
@@ -112,6 +114,8 @@ public class CheckersBoardView extends JComponent{
 			}
 		}
 		if(draggingPiece != null) {
+			g.setColor(Color.BLACK);
+			g.fillRect(draggingPiece.x, draggingPiece.y, SQUAREDIM, SQUAREDIM);
 			checkersPieces[oldY][oldX].draw(g, checkersPieces[oldY][oldX].x, checkersPieces[oldY][oldX].y);
 		}
 	}
