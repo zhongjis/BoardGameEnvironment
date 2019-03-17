@@ -15,6 +15,8 @@ public class MemoryGame extends Game {
      this.playerOneScore = 0;
      this.playerTwoScore = 0;
 
+     this.turn = 0;
+
      this.board = new MemoryGameBoard(5,6);
      this.run();
      this.end();
@@ -52,7 +54,12 @@ public class MemoryGame extends Game {
 		System.out.println(this.board);
 		System.out.println("Player one score: " + playerOneScore);
 		System.out.println("Player two score: " + playerTwoScore);
-		System.out.println("player " + this.turn + "'s Turn");
+
+		if (this.turn == 0) {
+			System.out.println("Player One's turn...");
+		} else {
+			System.out.println("Player Two's turn...");
+		}
 
 		int[] firstXY = askPieceWhere(1);
 		int xOne = firstXY[0];
@@ -66,7 +73,7 @@ public class MemoryGame extends Game {
 
 		// FIXME: feeling this step is extra due to the parameter issue with playMove
 		User currentPlayer = null;
-		if (this.turn == 1) {
+		if (this.turn == 0) {
 			currentPlayer = this.players[0];
 		} else {
 			currentPlayer = this.players[1];
@@ -75,18 +82,19 @@ public class MemoryGame extends Game {
 		// comparing the id of two Pieces
 		if (pieceOne.id == pieceTwo.id && pieceOne.id != -1) {
 			// if two tiles match. replacing with playerPiece
-			System.out.println("Player " + this.turn + " scored!");
-			// FIXME: only one tile will be changed
+			System.out.println("Scored!");
+
 			this.playMove(yOne, xOne, currentPlayer);
 			this.playMove(yTwo, xTwo, currentPlayer);
 			// incrementing score of the current user
-			if (this.turn == 2) {
+			if (this.turn == 0) {
 				this.playerOneScore++;
 			} else {
 				this.playerTwoScore++;
 			}
-		} // else do nothing
-		System.out.println("Ops, they are not matched");
+		} else {
+			System.out.println("Ops, they are not matched");
+		}
 	}
 
 	private void endTurn() {
@@ -125,13 +133,13 @@ public class MemoryGame extends Game {
 	@Override
 	User changeTurn() {
 		// FIXME: the turn int will be confusing with Piece ID which also uses int.
-		if (this.turn == 1) {
+		if (this.turn == 0) {
 			// switching turn to PlayerTwo
-			this.turn = 2;
+			this.turn = 1;
 			return this.players[1];
 		} else {
 			// switching turn to PlayerOne
-			this.turn = 1;
+			this.turn = 0;
 			return this.players[0];
 		}
 	}
