@@ -13,6 +13,7 @@ public class CheckersMain extends JFrame{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		CheckersBoardView gameView = new CheckersBoardView(gameState);
 		setContentPane(gameView);
+		setResizable(false);
 		pack();
 		setVisible(true);
 	}
