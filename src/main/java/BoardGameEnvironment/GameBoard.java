@@ -67,7 +67,7 @@ abstract class GameBoard {
 		if(x < this.boardArray.length && y < this.boardArray[x].length) {
 			this.boardArray[x][y] = piece;
 			return true;	
-		}else {
+		} else {
 			return false;
 		}
 	}
