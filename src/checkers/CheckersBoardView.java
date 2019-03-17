@@ -84,8 +84,8 @@ public class CheckersBoardView extends JComponent{
 		addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent me) {
 				if(dragging) {
-					int x = me.getX();
-					int y = me.getY();
+					int x = me.getX()-(SQUAREDIM/2);
+					int y = me.getY()-(SQUAREDIM/2);
 					checkersPieces[oldY][oldX].x = x;
 					checkersPieces[oldY][oldX].y = y;
 					repaint();
