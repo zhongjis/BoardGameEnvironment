@@ -14,17 +14,6 @@ public class ConnectFourBoard extends GameBoard{
 		
 	}
 	
-/*	@Override
-	public Piece getPiece(int x,int  y)
-	{
-		if(x>=0 && x < this.boardArray.length && y>=0 && y < this.boardArray[x].length) {
-			return (ConnectFourPiece) this.boardArray[y][x];
-		}else {
-			return null;
-		}
-		
-	}*/
-	
 	
 	
 }
