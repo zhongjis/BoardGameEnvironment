@@ -1,7 +1,7 @@
 /*
  * Piece obejct for ConnectFour game
  */
-package ConnectFour;
+package BoardGameEnvironment.ConnectFour;
 import BoardGameEnvironment.*;
 public class ConnectFourPiece extends Piece {
 	public String name;

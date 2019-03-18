@@ -12,6 +12,7 @@ import java.io.*;
 
 import BoardGameEnvironment.Checkers.CheckersGame;
 import BoardGameEnvironment.Checkers.CheckersMain;
+import BoardGameEnvironment.ConnectFour.ConnectFourMain;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
@@ -94,6 +95,8 @@ public class Menu {
           break;
         case "connectfour":
           System.out.println("connectfour");
+          ConnectFourMain connectFourGame = new ConnectFourMain(selectedUsers.toArray(new User[2]));
+          connectFourGame.run();
           break;
       }
     }else {
