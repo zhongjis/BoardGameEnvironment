@@ -76,11 +76,13 @@ public class CheckersBoardView extends JComponent{
 						if(middle != null) {
 							if(gameState.capture(middle, drop) != null)
 								gameState.end = true;
+						}
+						gameState.movePiece(oldClick, drop);
+						if(middle != null) {
 							ArrayList<CheckersLocation> availableReCaptures = gameState.checkReCapturable(drop);
 							if(availableReCaptures.size() != 0)
 								reCapture = drop;
 						}
-						gameState.movePiece(oldClick, drop);
 						if(!gameState.end) {
 							if(reCapture == null)
 								gameState.changeTurn();
