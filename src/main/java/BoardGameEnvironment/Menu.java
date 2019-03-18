@@ -10,6 +10,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.io.*;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
+
 // import BoardGameEnvironment.Memory.MemoryGame;
 
 public class Menu {
@@ -21,6 +24,8 @@ public class Menu {
   private Map<String, User> usersList;
   private DefaultListModel userModel;
   List<User> selectedUsers;
+
+  private JSONObject usersObj;
 
   public Menu() {
     this.s = new Scanner(System.in);
@@ -34,6 +39,8 @@ public class Menu {
     this.userModel = new DefaultListModel();
 
     this.selectedUsers = new ArrayList<>();
+
+    this.usersObj = new JSONObject();
   }
   
   private Game createGame(int choice) {
@@ -102,13 +109,17 @@ public class Menu {
             File f = fc.getSelectedFile();
             String filepath=f.getPath();
             try{
-              BufferedReader br=new BufferedReader(new FileReader(filepath));
-              String s1="",s2="";
-              while((s1=br.readLine())!=null){
-                s2+=s1+"\n";
-              }
-              System.out.println(s2);
-              br.close();
+              Object obj = new JSONParser().parse(new FileReader(filepath));
+
+              JSONObject jsonObject = (JSONObject) obj;
+              System.out.println(jsonObject);
+//              BufferedReader br=new BufferedReader(new FileReader(filepath));
+//              String s1="",s2="";
+//              while((s1=br.readLine())!=null){
+//                s2+=s1+"\n";
+//              }
+//              System.out.println(s2);
+//              br.close();
             }catch (Exception ex) {ex.printStackTrace();  }
           }
         }
@@ -175,6 +186,11 @@ public class Menu {
 
     createButton.setBounds(560,300,100,20);
     frame.add(createButton);
+
+    JButton fileExplorer = renderFileExplorer();
+
+    fileExplorer.setBounds(0, 180, 100, 20);
+    frame.add(fileExplorer);
 
     frame.setVisible(true);
   }
