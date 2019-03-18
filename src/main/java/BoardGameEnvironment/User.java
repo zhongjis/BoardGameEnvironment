@@ -30,6 +30,22 @@ public class User {
     this.battleshipLoses = 0;
   }
 
+  public User(String name, int[] statistics) {
+    this.name = name;
+
+    this.memoryWins = statistics[0];
+    this.memoryLoses = statistics[1];
+
+    this.connectfourWins = statistics[2];
+    this.connectfourLoses = statistics[3];
+
+    this.checkersWins = statistics[4];
+    this.checkersLoses = statistics[5];
+
+    this.battleshipWins = statistics[6];
+    this.battleshipLoses = statistics[7];
+  }
+
   public String getName() {
     return this.name;
   }
