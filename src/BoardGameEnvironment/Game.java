@@ -1,7 +1,7 @@
 package BoardGameEnvironment;
 
 public abstract class Game {
-  protected User[] players;
+  User[] players;
   GameBoard board;
   int turn;
 

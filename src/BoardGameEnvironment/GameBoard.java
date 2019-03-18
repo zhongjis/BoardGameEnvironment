@@ -17,7 +17,7 @@ public abstract class GameBoard {
 	public GameBoard(int width, int height, String gameType) {
 		this.width = width;
 		this.height = height;
-		boardArray = new Piece[width][height];
+		boardArray = new Piece[height][width];
 
 		// populate default pieces into the board
 		for(int i=0; i< this.boardArray.length; i++){
@@ -49,7 +49,7 @@ public abstract class GameBoard {
 	 * @return   [piece obejct]
 	 */
 	public Piece getPiece(int x, int y) {
-		if(x < this.boardArray.length && y < this.boardArray[x].length) {
+		if(0 <= x && x < this.boardArray.length && 0 <= y && y < this.boardArray[x].length) {
 			return this.boardArray[x][y];
 		}else {
 			return null;
@@ -64,10 +64,10 @@ public abstract class GameBoard {
 	 * @return       [return true if the action is successful, vice-versa]
 	 */
 	public boolean setPiece(int x, int y, Piece piece) {
-		if(x < this.boardArray.length && y < this.boardArray[x].length) {
+		if(0 <= x && x < this.boardArray.length && 0 <= y && y < this.boardArray[x].length) {
 			this.boardArray[x][y] = piece;
 			return true;	
-		}else {
+		} else {
 			return false;
 		}
 	}
