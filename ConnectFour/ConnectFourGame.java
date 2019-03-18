@@ -21,9 +21,8 @@ public class ConnectFourGame extends Game
 	
 	int width = 8;
 	int height = 8;
-
 	public int[]yvalues;
-
+	public int colNum;
 	int piecesOnBoard;
 	
 	@SuppressWarnings("serial")
@@ -51,6 +50,16 @@ public class ConnectFourGame extends Game
 	@Override
 	public void run()
 	{
+		int y = this.yvalues[this.colNum];
+		makeMove(this.colNum,y);
+		this.checkWin(this.colNum, y);
+		if(this.isWin || this.isFull())
+		{
+			return;		 
+		}
+		
+		this.decYValues(this.colNum);
+		this.changeTurn();
 	}
 	
 	public User[] getPlayers()
@@ -61,21 +70,7 @@ public class ConnectFourGame extends Game
 	{
 		return this.board;
 	}
-	public void run(int x)
-	{
-		int y = this.yvalues[x];
-		makeMove(x,y);
-		this.checkWin(x, y);
-		if(this.isWin || this.isFull())
-		{
-			return;		 
-		}
-		
-		this.decYValues(x);
-		this.changeTurn();
-		
-	
-	}
+
 	
 	public void console_run() {
 		// TODO Auto-generated method stub

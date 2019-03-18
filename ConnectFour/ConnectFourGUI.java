@@ -26,10 +26,10 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 	
 	final int MAX = 99999;
 	final int horPadding = 100;
-	final int verPadding = 200;
+	final int verPadding = 150;
 	final int pieceHorPadding = 30;
 	final int pieceVerPadding = 30;
-	final int pieceSize = 100;
+	final int pieceSize = 60;
 	final int fallingVelocity = 300;
 	final int optionY = verPadding-pieceSize-pieceVerPadding;
 	int mouseOnCol;
@@ -130,8 +130,8 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 		this.clickedOnCol = -1;
 		this.curY = MAX ;
 		
-		this.boardWidth = this.col*100+pieceHorPadding*(col+1) ;
-		this.boardHeight = this.row*100+pieceVerPadding*(row+1);
+		this.boardWidth = this.col*pieceSize+pieceHorPadding*(col+1) ;
+		this.boardHeight = this.row*pieceSize+pieceVerPadding*(row+1);
 		this.width = this.boardWidth + horPadding * 2;
 		this.height = this.boardHeight + verPadding *2;
 		this.setSize(width,height);
@@ -172,37 +172,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 		);
 		
 		
-		/*JTextField tf = new JTextField("enter me");
-		tf.setBounds(200,200,200,200);
-		tf.setFont(new Font("Arial",Font.PLAIN,33));
-		
-	
-		JButton b = new JButton("click");
-		b.setFont(new Font("Arial",Font.PLAIN,33));
-		b.setBackground(Color.BLUE);
-		b.setBounds(400, 400, 100, 100);
-		b.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				tf.setText("Welcome");
-				tf.setBackground(Color.cyan);
-			}
-		});
-		
-		JButton c = new JButton("click");
-		c.setFont(new Font("Arial",Font.PLAIN,33));
-		c.setBackground(Color.BLUE);
-		c.setBounds(400, 400, 100, 100);
-		c.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				tf.setText("Welcome");
-				tf.setBackground(Color.cyan);
-			}
-		});*/
-		
-		
-//		this.add(b);
-//		this.add(c);
-//		this.add(tf);
+
 		this.add(statusPanel,BorderLayout.SOUTH);
 		
 		Handler handler = new Handler();
@@ -217,10 +187,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 		//this.setVisible(true);
 	}
 	
-	private void pack() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -259,7 +226,8 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 				g.fillOval(calcPixX(this.clickedOnCol), 
 						this.calcPixY(this.game.yvalues[this.clickedOnCol]), pieceSize, pieceSize);
 				
-				this.game.run(this.clickedOnCol);
+				this.game.colNum = this.clickedOnCol;
+				this.game.run();
 				this.clickedOnCol = -1;
 			}
 		}
@@ -355,7 +323,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 			this.setBackground(this.getColor(this.game.getTurn()));
 			this.add(gameoverLabel,BorderLayout.CENTER);
 			this.add(restartButton,BorderLayout.NORTH);
-			restartButton.setBounds(this.width/2-150,optionY,300,horPadding-(optionY-50));
+			restartButton.setBounds(this.width/2-150,optionY,300,verPadding/2)	;
 		}
 		
 		statusPanel.setBackground(this.getColor(this.game.getTurn()));
@@ -374,6 +342,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 		frame.setSize(GUI.width,GUI.height);
 		
 		frame.setLayout(new BorderLayout());
+		frame.setResizable(false);
 		
 		frame.add(GUI,BorderLayout.CENTER);
 		//frame.pack();
