@@ -14,17 +14,15 @@ public class ConnectFourBoard extends GameBoard{
 		
 	}
 	
-	/*public boolean isFull()
+/*	@Override
+	public Piece getPiece(int x,int  y)
 	{
-		for(int i = 0; i < this.boardArray.length;i++) {
-			for(int j = 0; j < this.boardArray[j].length;j++) {
-				if(this.boardArray[i][j].getId() == 0)
-				{
-					return false;
-				}
-			}
+		if(x>=0 && x < this.boardArray.length && y>=0 && y < this.boardArray[x].length) {
+			return (ConnectFourPiece) this.boardArray[y][x];
+		}else {
+			return null;
 		}
-		return true;
+		
 	}*/
 	
 	
