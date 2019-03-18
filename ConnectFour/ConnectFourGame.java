@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class ConnectFourGame extends Game
 {
-	public static final int yellow = 1;
-	public static final int red = 2;
+	static final int white = 1;
+	static final int black = 2;
 	static final int FOUR = 4;
 	final int[]d1 = {-1,0};
 	final int[]d2 = {-1,1};
@@ -19,9 +19,9 @@ public class ConnectFourGame extends Game
 	final int[]d7 = {-1,-1};
 	//{0,-1} not needed, because the pieces are dropped from top
 	
-	int width = 8;
-	int height = 8;
-	public int[]yvalues;
+	int width = 2;
+	int height = 2;
+	int[]yvalues;
 	int piecesOnBoard;
 	
 	@SuppressWarnings("serial")
@@ -36,7 +36,7 @@ public class ConnectFourGame extends Game
 	public ConnectFourGame(User[] players) {
 		super(players);
 		this.board = new ConnectFourBoard(this.width, this.height, "connectfour");  //default board is 8x8
-		this.turn = yellow; //yellow always goes first
+		this.turn = white; //white always goes first
 		this.isWin = false;
 		this.piecesOnBoard = 0;
 		
@@ -47,35 +47,7 @@ public class ConnectFourGame extends Game
 	}
 
 	@Override
-	public void run()
-	{
-	}
-	
-	public User[] getPlayers()
-	{
-		return this.players;
-	}
-	public GameBoard getBoard()
-	{
-		return this.board;
-	}
-	public void run(int x)
-	{
-		int y = this.yvalues[x];
-		makeMove(x,y);
-		this.checkWin(x, y);
-		if(this.isWin || this.isFull())
-		{
-			return;		 
-		}
-		
-		this.decYValues(x);
-		this.changeTurn();
-		
-	
-	}
-	
-	public void console_run() {
+	public void run() {
 		// TODO Auto-generated method stub
 		Scanner input = new Scanner(System.in);
 		int x;
@@ -121,12 +93,7 @@ public class ConnectFourGame extends Game
 	
 	public String getColor()
 	{
-		return this.turn==yellow ? "yellow" : "red";
-	}
-	
-	public int getTurn()
-	{
-		return this.turn;
+		return this.turn==white ? "White" : "Black";
 	}
 	
 	public boolean isFull()
@@ -159,7 +126,7 @@ public class ConnectFourGame extends Game
 	
 	@Override
 	public void changeTurn() {
-		this.turn = (this.turn == yellow) ? red : yellow;
+		this.turn = (this.turn == white) ? black : white;
 	}
 	
 	public void decYValues(int x)
@@ -206,17 +173,12 @@ public class ConnectFourGame extends Game
 		return null;
 	}
 	
-	public void restart()
-	{
-		 new ConnectFourGame(this.players);
-	}
-	
 	public static void main(String[]args)
 	{
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the first player(yellow)");
+		System.out.println("Enter the first player(White)");
 		String playerA = input.nextLine();
-		System.out.println("Enter the second player(red)");
+		System.out.println("Enter the second player(Black)");
 		String playerB = input.nextLine();
 		
 		User[]players = {new User(playerA),new User(playerB)};
