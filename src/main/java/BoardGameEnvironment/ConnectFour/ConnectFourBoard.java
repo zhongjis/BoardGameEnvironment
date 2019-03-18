@@ -1,4 +1,4 @@
-package ConnectFour;
+package BoardGameEnvironment.ConnectFour;
 import BoardGameEnvironment.*;
 
 public class ConnectFourBoard extends GameBoard{

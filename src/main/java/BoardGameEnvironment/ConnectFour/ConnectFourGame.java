@@ -1,4 +1,5 @@
-package ConnectFour;
+package BoardGameEnvironment.ConnectFour;
+
 import BoardGameEnvironment.*;
 
 import java.util.ArrayList;
@@ -115,7 +116,12 @@ public class ConnectFourGame extends Game
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	@Override
+	public User checkIfEnd() {
+		return players[0];
+	}
+
 	public String getColor()
 	{
 		return this.turn==yellow ? "yellow" : "red";
@@ -155,8 +161,10 @@ public class ConnectFourGame extends Game
 	} 
 	
 	@Override
-	public void changeTurn() {
+	public User changeTurn() {
 		this.turn = (this.turn == yellow) ? red : yellow;
+
+		return (this.turn == yellow) ? players[1] : players[0];
 	}
 	
 	public void decYValues(int x)
@@ -195,12 +203,6 @@ public class ConnectFourGame extends Game
 			}
 			connected = 1;
 		}
-	}
-
-	@Override
-	public User checkIfWin() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public void restart()
