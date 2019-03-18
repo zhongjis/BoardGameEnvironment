@@ -17,7 +17,7 @@ abstract class GameBoard {
 	public GameBoard(int width, int height, String gameType) {
 		this.width = width;
 		this.height = height;
-		boardArray = new Piece[width][height];
+		boardArray = new Piece[height][width];
 
 		// populate default pieces into the board
 		for(int i=0; i< this.boardArray.length; i++){
