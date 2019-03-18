@@ -39,7 +39,7 @@ public class Menu {
   private Game createGame(int choice) {
     switch (choice) {
     case 0:
-      return new MemoryGame(this.users[0], this.users[1]);
+//      return new MemoryGame(this.users[0], this.users[1]);
     default: 
       return null;
     }
