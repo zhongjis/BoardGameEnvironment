@@ -11,7 +11,5 @@ public class ConnectFourBoard extends GameBoard{
 	@Override
 	public void initializeGameBoard() {
 		// TODO Auto-generated method stub
-		
 	}
-	
 }

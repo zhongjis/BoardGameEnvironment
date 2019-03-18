@@ -9,8 +9,6 @@ import BoardGameEnvironment.User;
 public class ConnectFourMain extends JFrame {
 	
 	public ConnectFourMain(User[]players) {
-		System.out.println(players[0].getName());
-		System.out.println(players[1].getName());
 		ConnectFourGUI GUI= new ConnectFourGUI(8,8, new ConnectFourGame(players)); 
 		this.setSize(GUI.width,GUI.height);
 		
