@@ -58,6 +58,8 @@ public class CheckersPieceView {
 	
 	public void drawAvailableMove(Graphics g, int x, int y) {
 		g.setColor(Color.ORANGE);
-		g.drawOval(x+50, y+50, DIMENSION/20, DIMENSION/20);
+		g.fillOval(x+42, y+42, DIMENSION/5, DIMENSION/5);
+		g.setColor(Color.RED);
+		g.drawOval(x+42, y+42, DIMENSION/5, DIMENSION/5);
 	}
 }
