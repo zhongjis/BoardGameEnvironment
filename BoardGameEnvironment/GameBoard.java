@@ -6,7 +6,7 @@ package BoardGameEnvironment;
 public abstract class GameBoard {
 	int width;
 	int height;
-	Piece[][] boardArray;
+	protected Piece[][] boardArray;
 
 	/**
 	 * init GameBoard with given width & height & game type. about game type please checkout PieceFactory.java
