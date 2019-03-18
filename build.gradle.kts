@@ -18,11 +18,13 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation("com.google.guava:guava:26.0-jre")
+    compile("com.googlecode.json-simple:json-simple:1.1.1")
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")

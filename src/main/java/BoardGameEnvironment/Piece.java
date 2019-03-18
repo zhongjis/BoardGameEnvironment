@@ -6,7 +6,7 @@
 package BoardGameEnvironment;
 
 public class Piece {
-	protected int id;
+	public int id;
 
 	public Piece() {
 		this.id = 0;

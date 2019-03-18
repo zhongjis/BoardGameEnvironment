@@ -1,9 +1,9 @@
 package BoardGameEnvironment;
 
-abstract class Game {
-  User[] players;
-  GameBoard board;
-  int turn;
+public abstract class Game {
+  protected User[] players;
+  protected GameBoard board;
+  protected int turn;
 
   public Game(User[] players) {
     this.players = players;
@@ -17,13 +17,13 @@ abstract class Game {
     }
   }
 
-  abstract void run();
+  public abstract void run();
 
-  abstract void end();
+  public abstract void end();
 
-  abstract User checkIfEnd();
+  public abstract User checkIfEnd();
 
-  abstract void playMove(int x, int y, User player);
+  public abstract void playMove(int x, int y, User player);
 
-  abstract User changeTurn();
+  public abstract User changeTurn();
 }

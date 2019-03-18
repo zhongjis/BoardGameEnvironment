@@ -1,4 +1,7 @@
-package BoardGameEnvironment;
+package BoardGameEnvironment.Memory;
+
+import BoardGameEnvironment.GameBoard;
+import BoardGameEnvironment.Piece;
 
 import java.util.*;
 import java.util.Collections;
@@ -11,7 +14,7 @@ public class MemoryGameBoard extends GameBoard {
   }
 
 
-  void initializeGameBoard() {
+  public void initializeGameBoard() {
     int pairs = (this.width * this.height)/2;
     int[] randomPairs = generateRandomPairs(pairs);
 
