@@ -1,4 +1,4 @@
-package BoardGameEnvironment;
+package main.java.BoardGameEnvironment;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

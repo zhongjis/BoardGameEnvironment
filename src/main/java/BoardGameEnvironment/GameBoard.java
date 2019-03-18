@@ -32,7 +32,7 @@ abstract class GameBoard {
 	 * actual game pieces. Call this function right after you
 	 * initalize GameBoard.
 	 */
-	abstract void initializeGameBoard();
+	public abstract void initializeGameBoard();
 
 	/**
 	 * [getBoardArray]

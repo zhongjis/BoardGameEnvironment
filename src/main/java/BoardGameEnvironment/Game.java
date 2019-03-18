@@ -17,13 +17,13 @@ abstract class Game {
     }
   }
 
-  abstract void run();
+  public abstract void run();
 
-  abstract void end();
+  public abstract void end();
 
-  abstract User checkIfEnd();
+  public abstract User checkIfEnd();
 
-  abstract void playMove(int x, int y, User player);
+  public abstract void playMove(int x, int y, User player);
 
-  abstract User changeTurn();
+  public abstract User changeTurn();
 }
