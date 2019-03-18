@@ -3,7 +3,7 @@
  * you suppose to create your own piece class inherited from this
  */
 
-package BoardGameEnvironment;
+package main.java.BoardGameEnvironment;
 
 public class Piece {
 	protected int id;

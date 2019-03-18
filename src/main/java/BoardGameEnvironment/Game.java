@@ -1,4 +1,4 @@
-package BoardGameEnvironment;
+package main.java.BoardGameEnvironment;
 
 public abstract class Game {
   User[] players;

@@ -1,4 +1,4 @@
-package checkers;
+package main.java.BoardGameEnvironment.Checkers;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

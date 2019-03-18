@@ -1,5 +1,5 @@
-package checkers;
-import BoardGameEnvironment.User;
+package main.java.BoardGameEnvironment.Checkers;
+import main.java.BoardGameEnvironment.User;
 
 public class CheckersUser extends User{
 	private int pieces = 12;

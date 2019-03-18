@@ -1,5 +1,5 @@
-package checkers;
-import BoardGameEnvironment.*;
+package main.java.BoardGameEnvironment.Checkers;
+import main.java.BoardGameEnvironment.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,7 +1,7 @@
 /*
  * This file is board class
  */
-package BoardGameEnvironment;
+package main.java.BoardGameEnvironment;
 
 public abstract class GameBoard {
 	int width;

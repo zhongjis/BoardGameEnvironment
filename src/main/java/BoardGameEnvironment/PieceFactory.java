@@ -1,5 +1,5 @@
-package BoardGameEnvironment;
-import checkers.CheckersPiece;
+package main.java.BoardGameEnvironment;
+import main.java.BoardGameEnvironment.Checkers.CheckersPiece;
 
 public class PieceFactory {
 	public static Piece createPiece(String type) {

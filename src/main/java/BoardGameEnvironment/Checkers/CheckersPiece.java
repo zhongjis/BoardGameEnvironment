@@ -1,5 +1,5 @@
-package checkers;
-import BoardGameEnvironment.Piece;
+package main.java.BoardGameEnvironment.Checkers;
+import main.java.BoardGameEnvironment.Piece;
 
 public class CheckersPiece extends Piece{
 	private String image;

@@ -1,4 +1,4 @@
-package BoardGameEnvironment;
+package main.java.BoardGameEnvironment;
 
 public class User {
   String name;

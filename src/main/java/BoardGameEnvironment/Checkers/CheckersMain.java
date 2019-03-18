@@ -1,8 +1,8 @@
-package checkers;
+package main.java.BoardGameEnvironment.Checkers;
 
 import javax.swing.JFrame;
 import java.util.ArrayList;
-import BoardGameEnvironment.User;
+import main.java.BoardGameEnvironment.User;
 
 public class CheckersMain extends JFrame{
 	public CheckersMain() {
