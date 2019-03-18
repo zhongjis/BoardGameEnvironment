@@ -2,7 +2,7 @@ package main.java.BoardGameEnvironment.Checkers;
 import main.java.BoardGameEnvironment.User;
 
 public class CheckersUser extends User{
-	private int pieces = 12;
+	protected int pieces = 1;
 	
 	public CheckersUser(String name) {
 		super(name);	

@@ -141,8 +141,14 @@ public class CheckersGame extends Game {
 	}
 	
 	public void playMove(int x, int y, User player) {
-		//Only one set of coordinates, what/where do we move???
-		;
+		CheckersLocation coord = new CheckersLocation(x,y);
+		ArrayList<CheckersLocation> availableMoves = checkAvailableMoves(coord, board.getPiece(coord.getX(), coord.getY()).getType());
+		System.out.println("Available moves:");
+		for(int i=0;i<availableMoves.size();i++)
+		{
+			System.out.println((i+1) + ". " + availableMoves.get(i).getX() + "," + availableMoves.get(i).getY());
+		}
+		
 	}
 	
 	public void movePiece(CheckersLocation coordStart, CheckersLocation coordEnd)
@@ -509,5 +515,14 @@ public class CheckersGame extends Game {
 			}
 		}
 		return temp;
+	}
+	
+	public void reset() {
+		usersList.get(0).pieces = 12;
+		usersList.get(1).pieces = 12;
+		board.initializeGameBoard();
+		playerTurn = 1;
+		turnNumber = 1;
+		end = true;
 	}
 }

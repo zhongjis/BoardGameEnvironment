@@ -10,8 +10,11 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.JButton;
 
 public class CheckersBoardView extends JComponent{
 	private CheckersGame gameState;
@@ -20,7 +23,7 @@ public class CheckersBoardView extends JComponent{
 	private Dimension dimSize;
 	private boolean dragging = false;
 	private CheckersPieceView[][] checkersPieces = new CheckersPieceView[8][8];
-	private CheckersPieceView draggingPiece;
+	private CheckersPieceView draggingPiece = null;
 	private int oldX = -1, oldY = -1;
 	private CheckersLocation reCapture = null;
 	
@@ -139,6 +142,34 @@ public class CheckersBoardView extends JComponent{
 		});
 	}
 	
+	public class PlayAgain extends JComponent{
+		CheckersBoardView boardView;
+		private Dimension dimSize = new Dimension(90, 50);
+		
+		public PlayAgain(CheckersBoardView boardView) {
+			this.boardView = boardView;
+			setBounds(355, 560, 90, 50);
+			addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent me) {
+					boardView.gameState.reset();
+					boardView.dragging = false;
+					boardView.draggingPiece = null;
+					boardView.oldX = -1;
+					boardView.oldY = -1;
+					boardView.reCapture = null;
+					boardView.updateGameViewBoard();
+					boardView.repaint();
+					System.out.println("HERE");
+				}
+			});
+		}
+		
+		@Override
+		public Dimension getPreferredSize() {
+			return dimSize;
+		}
+	}
+	
 	public void paintGameOver(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.BOLD, 72));
 		g.setColor(new Color(37, 53, 255, 255));
@@ -150,6 +181,14 @@ public class CheckersBoardView extends JComponent{
 		else
 			g.drawString(gameState.usersList.get(1).getName(), 300, 485);
 		g.drawString("WINS", 335, 545);
+		g.setColor(Color.WHITE);
+		g.draw3DRect(355, 560, 90, 50, true);
+		g.setColor(Color.DARK_GRAY);
+		g.fill3DRect(355, 560, 90, 50, true);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("TimesRoman", Font.BOLD, 16));
+		g.drawString("Play Again", 362, 590);
+		PlayAgain end = new PlayAgain(this);
 	}
 	
 	@Override
