@@ -113,8 +113,10 @@ public class ConnectFourGame extends Game
 	
 	@Override
 	public void end() {
-		// TODO Auto-generated method stub
-		
+		this.getPlayer().connectfourWins++;
+		this.changeTurn();
+		this.getPlayer().connectfourLoses++;
+		this.changeTurn();
 	}
 
 	@Override
@@ -151,13 +153,14 @@ public class ConnectFourGame extends Game
 	@Override
 	public void playMove(int x, int y, User player) {
 		// TODO Auto-generated method stub
-		
+		this.board.setPiece(y, x, new ConnectFourPiece(this.turn));	
+		this.piecesOnBoard++;
 	}
+
 	
 	public void makeMove(int x, int y)
 	{
-		this.board.setPiece(y, x, new ConnectFourPiece(this.turn));	
-		this.piecesOnBoard++;
+		playMove(x,y,this.getPlayer());
 	} 
 	
 	@Override

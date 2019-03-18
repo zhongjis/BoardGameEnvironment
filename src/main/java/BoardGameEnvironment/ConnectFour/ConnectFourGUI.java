@@ -137,8 +137,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 		this.setSize(width,height);
 		this.setBackground(Color.BLACK);
 		
-		//this.setSize(width,height);
-	//	this.setLayout(new FlowLayout(FlowLayout.CENTER,30,20));
+
 		this.setLayout(new BorderLayout());
 		
 		tm = new Timer(100,this);
@@ -321,6 +320,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 		{
 			String str = String.format("%s(%s) won!", this.game.getPlayer().getName(),this.game.getColor());
 			this.statusBar.setText(str);
+			this.game.end();
 			this.setBackground(this.getColor(this.game.getTurn()));
 			this.add(gameoverLabel,BorderLayout.CENTER);
 			this.add(restartButton,BorderLayout.NORTH);
