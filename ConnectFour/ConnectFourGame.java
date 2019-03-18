@@ -21,7 +21,9 @@ public class ConnectFourGame extends Game
 	
 	int width = 8;
 	int height = 8;
+
 	public int[]yvalues;
+
 	int piecesOnBoard;
 	
 	@SuppressWarnings("serial")
