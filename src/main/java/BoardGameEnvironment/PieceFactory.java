@@ -5,7 +5,9 @@ public class PieceFactory {
 		if(type.equalsIgnoreCase("memory")) {
 			return new MemoryPiece();
 		}
-		
+		else if(type.equalsIgnoreCase("checkers")) {
+			return new CheckersPiece();
+		}
 		return null;
 	}
 }
