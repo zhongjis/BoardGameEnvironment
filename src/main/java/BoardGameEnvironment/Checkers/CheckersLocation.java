@@ -1,4 +1,4 @@
-package main.java.BoardGameEnvironment.Checkers;
+package BoardGameEnvironment.Checkers;
 
 public class CheckersLocation {
 	private int x;

@@ -1,4 +1,4 @@
-package main.java.BoardGameEnvironment.Checkers;
+package BoardGameEnvironment.Checkers;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;

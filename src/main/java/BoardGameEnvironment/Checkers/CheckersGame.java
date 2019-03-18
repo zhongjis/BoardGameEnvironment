@@ -1,5 +1,8 @@
-package main.java.BoardGameEnvironment.Checkers;
-import main.java.BoardGameEnvironment.*;
+package BoardGameEnvironment.Checkers;
+//import main.java.BoardGameEnvironment.*;
+
+import BoardGameEnvironment.Game;
+import BoardGameEnvironment.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,7 +14,7 @@ public class CheckersGame extends Game {
 	protected CheckersBoard board;
 	protected ArrayList<CheckersUser> usersList = new ArrayList<CheckersUser>();
 		
-	CheckersGame(CheckersBoard board, User playerOne, User playerTwo){
+	public CheckersGame(CheckersBoard board, User playerOne, User playerTwo){
 		super(new User[] {playerOne, playerTwo});
 		usersList.add(new CheckersUser(playerOne.getName()));
 		usersList.add(new CheckersUser(playerTwo.getName()));
@@ -128,7 +131,7 @@ public class CheckersGame extends Game {
 			return usersList.get(1);
 		return null;
 	}
-	
+
 	public User changeTurn() {
 		if (playerTurn == 1) {
 			playerTurn = 2;

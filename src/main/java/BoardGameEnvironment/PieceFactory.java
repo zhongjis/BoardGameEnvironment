@@ -1,5 +1,8 @@
 package BoardGameEnvironment;
 
+import BoardGameEnvironment.Checkers.CheckersPiece;
+import BoardGameEnvironment.Memory.MemoryPiece;
+
 public class PieceFactory {
 	public static Piece createPiece(String type) {
 		if(type.equalsIgnoreCase("memory")) {

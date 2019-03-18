@@ -1,6 +1,8 @@
-package main.java.BoardGameEnvironment.Checkers;
+package BoardGameEnvironment.Checkers;
 
-import main.java.BoardGameEnvironment.GameBoard;
+//import main.java.BoardGameEnvironment.GameBoard;
+
+import BoardGameEnvironment.GameBoard;
 
 public class CheckersBoard extends GameBoard {
 	CheckersBoard(){

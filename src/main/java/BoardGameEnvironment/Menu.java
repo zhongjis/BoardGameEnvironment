@@ -1,4 +1,4 @@
-package main.java.BoardGameEnvironment;
+package BoardGameEnvironment;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.io.*;
 
+import BoardGameEnvironment.Checkers.CheckersGame;
+import BoardGameEnvironment.Checkers.CheckersMain;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
@@ -35,7 +37,7 @@ public class Menu {
     this.frame = new JFrame("BoardGameEnvironment");
     this.errorLabel = new JLabel("");
     this.users = new User[] {userOne, userTwo};
-    this.usersList = new HashMap<>();
+    this.usersList = new HashMap<String, User>();
     this.userModel = new DefaultListModel();
 
     this.selectedUsers = new ArrayList<>();
@@ -76,12 +78,16 @@ public class Menu {
 
   private void handleGameSelect(String type) {
     if(selectedUsers.size() == 2) {
+      User userOne = selectedUsers.get(0);
+      User userTwo = selectedUsers.get(1);
+
       switch(type) {
         case "memory":
           System.out.println("memoryyy");
           break;
         case "checkers":
           System.out.println("checkers");
+          CheckersMain checkersGame = new CheckersMain(userOne, userTwo);
           break;
         case "battleship":
           System.out.println("battleship");

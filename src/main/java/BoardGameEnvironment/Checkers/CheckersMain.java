@@ -1,15 +1,17 @@
-package main.java.BoardGameEnvironment.Checkers;
+package BoardGameEnvironment.Checkers;
 
 import javax.swing.JFrame;
 import java.util.ArrayList;
-import main.java.BoardGameEnvironment.User;
+
+import BoardGameEnvironment.User;
+//import main.java.BoardGameEnvironment.User;
 
 public class CheckersMain extends JFrame{
-	public CheckersMain() {
+	public CheckersMain(User userOne, User userTwo) {
 		super("Checkers");
 		CheckersBoard board = new CheckersBoard();
 		board.initializeGameBoard();
-		CheckersGame gameState = new CheckersGame(board, new User("playerone"), new User("playertwo"));
+		CheckersGame gameState = new CheckersGame(board, userOne, userTwo);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		CheckersBoardView gameView = new CheckersBoardView(gameState);
 		setContentPane(gameView);
@@ -18,8 +20,8 @@ public class CheckersMain extends JFrame{
 		setVisible(true);
 	}
 	
-	public static void main(String[] args)
-	{
-		CheckersMain run = new CheckersMain();
-	}
+//	public static void main(String[] args)
+//	{
+//		CheckersMain run = new CheckersMain();
+//	}
 }

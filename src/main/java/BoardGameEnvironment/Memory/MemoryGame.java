@@ -1,4 +1,10 @@
-package BoardGameEnvironment;
+package BoardGameEnvironment.Memory;
+
+
+import BoardGameEnvironment.Game;
+import BoardGameEnvironment.Memory.MemoryPiece;
+import BoardGameEnvironment.Piece;
+import BoardGameEnvironment.User;
 
 import java.util.Scanner;
 
@@ -24,7 +30,7 @@ public class MemoryGame extends Game {
 
 
 	@Override
-	void run() {
+	public void run() {
 		int totalScore = playerOneScore + playerTwoScore;
 		while (totalScore < 15) {
 			this.startTurn();
@@ -38,7 +44,7 @@ public class MemoryGame extends Game {
 	 * game ending, show the winner
 	 */
 	@Override
-	void end() {
+	public void end() {
 		// FIXME: not sure if Menu will catch the ending game signal and allow user to start another game.
 		if (playerOneScore > playerTwoScore) {
 			System.out.println("Game finished, Player One is the winner!");
@@ -106,7 +112,7 @@ public class MemoryGame extends Game {
 	} 
 	
 	@Override
-	User checkIfEnd() {
+	public User checkIfEnd() {
 		int totalScore = playerOneScore + playerTwoScore;
 		if (totalScore == 15 && playerOneScore > playerTwoScore) {
 			return this.players[0];
@@ -116,9 +122,9 @@ public class MemoryGame extends Game {
 			return null;
 		}
 	}
-	
+
 	@Override
-	void playMove(int x, int y, User player) {
+	public void playMove(int x, int y, User player) {
 		// WARNING: player parameter is never used
 		// FIXME: while playing moves, does not use the flipped value of the Piece
 		// FIXME: this method is confusing. it suppose to call setMove on GameBoard but has the third parameter as User instead of Piece.
@@ -131,7 +137,7 @@ public class MemoryGame extends Game {
 	 * @return this.turn
 	 */
 	@Override
-	User changeTurn() {
+	public User changeTurn() {
 		// FIXME: the turn int will be confusing with Piece ID which also uses int.
 		if (this.turn == 0) {
 			// switching turn to PlayerTwo

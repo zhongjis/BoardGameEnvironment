@@ -3,10 +3,10 @@
  */
 package BoardGameEnvironment;
 
-abstract class GameBoard {
-	int width;
-	int height;
-	Piece[][] boardArray;
+public abstract class GameBoard {
+	protected int width;
+	protected int height;
+	protected Piece[][] boardArray;
 
 	/**
 	 * init GameBoard with given width & height & game type. about game type please checkout PieceFactory.java

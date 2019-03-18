@@ -2,7 +2,9 @@
  * Piece obejct for Memory game only
  */
 
-package BoardGameEnvironment;
+package BoardGameEnvironment.Memory;
+
+import BoardGameEnvironment.Piece;
 
 public class MemoryPiece extends Piece {
 	private Boolean matched; // FIXME: this value is never used in MemoryGame 
