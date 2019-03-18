@@ -37,4 +37,27 @@ public class CheckersPieceView {
 		}
 	}
 	
+	public void drawActive(Graphics g, int x, int y) {
+		if(piece.getId() == 1) {
+			g.setColor(Color.BLACK);
+			g.fillOval(x, y, DIMENSION, DIMENSION);
+			g.setColor(Color.YELLOW);
+			g.drawOval(x, y, DIMENSION, DIMENSION);
+		}
+		else if(piece.getId() == 2) {
+			g.setColor(Color.RED);
+			g.fillOval(x, y, DIMENSION, DIMENSION);
+			g.setColor(Color.YELLOW);
+			g.drawOval(x, y, DIMENSION, DIMENSION);
+		}
+		if(piece.getType().equals("king")) {
+			g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+			g.drawString("KING", x+35, y+55);
+		}
+	}
+	
+	public void drawAvailableMove(Graphics g, int x, int y) {
+		g.setColor(Color.ORANGE);
+		g.drawOval(x+50, y+50, DIMENSION/20, DIMENSION/20);
+	}
 }

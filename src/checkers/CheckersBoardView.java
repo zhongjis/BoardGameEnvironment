@@ -3,6 +3,7 @@ package checkers;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.RenderingHints;
@@ -20,7 +21,7 @@ public class CheckersBoardView extends JComponent{
 	private boolean dragging = false;
 	private CheckersPieceView[][] checkersPieces = new CheckersPieceView[8][8];
 	private CheckersPieceView draggingPiece;
-	private int oldX, oldY;
+	private int oldX = -1, oldY = -1;
 	private CheckersLocation reCapture = null;
 	
 	public CheckersBoardView(CheckersGame gameState) {
@@ -158,6 +159,9 @@ public class CheckersBoardView extends JComponent{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D)g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setStroke(new BasicStroke(3));
 		paintCheckersBoard(g);
 		paintCheckersPieces(g);
 		if(gameState.end)
@@ -170,16 +174,33 @@ public class CheckersBoardView extends JComponent{
 				checkersPieces[row][col].draw(g, col*SQUAREDIM, row*SQUAREDIM);
 			}
 		}
-		if(draggingPiece != null) {
+		if(draggingPiece == null) {
+			if(reCapture == null) {
+				ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
+				for(CheckersLocation element : availablePieces) {
+					checkersPieces[element.getX()][element.getY()].drawActive(g, element.getY()*SQUAREDIM, element.getX()*SQUAREDIM);
+				}
+			}else
+				checkersPieces[reCapture.getX()][reCapture.getY()].drawActive(g, reCapture.getY()*SQUAREDIM, reCapture.getX()*SQUAREDIM);
+		}else {
 			g.setColor(Color.BLACK);
 			g.fillRect(draggingPiece.x, draggingPiece.y, SQUAREDIM, SQUAREDIM);
-			checkersPieces[oldY][oldX].draw(g, checkersPieces[oldY][oldX].x, checkersPieces[oldY][oldX].y);
+			checkersPieces[oldY][oldX].drawActive(g, checkersPieces[oldY][oldX].x, checkersPieces[oldY][oldX].y);
+			if(reCapture == null) {
+				CheckersLocation element = new CheckersLocation(oldY, oldX);
+				ArrayList<CheckersLocation> checkMoves = gameState.checkAvailableMoves(element, gameState.board.getPiece(element.getX(), element.getY()).getType());
+				for(CheckersLocation moves : checkMoves) {
+					checkersPieces[moves.getX()][moves.getY()].drawAvailableMove(g, moves.getY()*SQUAREDIM, moves.getX()*SQUAREDIM);
+				}
+			}else {
+				ArrayList<CheckersLocation> availableReCaptures = gameState.checkReCapturable(reCapture);
+				for(CheckersLocation moves : availableReCaptures)
+					checkersPieces[moves.getX()][moves.getY()].drawAvailableMove(g, moves.getY()*SQUAREDIM, moves.getX()*SQUAREDIM);
+			}
 		}
 	}
 	
 	private void paintCheckersBoard(Graphics g) {
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		for(int row=0;row<8;row++) {
 			if(!gameState.end) {
 				g.setColor(((row % 2) == 0) ? Color.WHITE : Color.BLACK);
