@@ -18,11 +18,11 @@ public class MemoryGameBoard extends GameBoard {
     int pairs = (this.width * this.height)/2;
     int[] randomPairs = generateRandomPairs(pairs);
 
-    System.out.println(Arrays.toString(randomPairs));
+    // System.out.println(Arrays.toString(randomPairs));
 
-    for(int i=0; i< this.width; i++){
+    for(int i=0; i < this.width; i++){
 			for(int j = 0; j < this.height; j++) {
-				this.boardArray[i][j] = new Piece(randomPairs[i*(this.width+1)+j]);
+				this.boardArray[j][i] = new Piece(randomPairs[i*(this.width+1)+j]);
 			}
 		}
   }
@@ -31,7 +31,7 @@ public class MemoryGameBoard extends GameBoard {
     int[] randomPairs = new int[pairs*2];
     
     for(int i=0, j=0; i < pairs*2; i+=2, j++) {
-      System.out.println(j + " " + i);
+      // System.out.println(j + " " + i);
       randomPairs[i] = j;
       randomPairs[i+1] = j;
     }
