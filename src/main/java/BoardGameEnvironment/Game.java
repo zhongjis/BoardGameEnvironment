@@ -3,7 +3,7 @@ package BoardGameEnvironment;
 public abstract class Game {
   protected User[] players;
   protected GameBoard board;
-  protected int turn;
+  public int turn;
 
   public Game(User[] players) {
     this.players = players;

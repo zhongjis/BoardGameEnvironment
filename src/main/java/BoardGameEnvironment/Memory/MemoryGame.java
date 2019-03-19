@@ -1,6 +1,5 @@
 package BoardGameEnvironment.Memory;
 
-
 import BoardGameEnvironment.Game;
 import BoardGameEnvironment.Memory.MemoryPiece;
 import BoardGameEnvironment.Piece;
@@ -84,6 +83,14 @@ public class MemoryGame extends Game {
 		return output;
 	}
 
+	public int getWinner() {
+		if (playerOneScore > playerTwoScore) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 
 	private void nextPlayer() {
 		// change turn to next player
@@ -114,7 +121,13 @@ public class MemoryGame extends Game {
 		}
 	}
 
-	
+	public int getPlayerOneScore() {
+		return this.playerOneScore;
+	}
+
+	public int getPlayerTwoScore() {
+		return this.playerTwoScore;
+	}
 
 
 

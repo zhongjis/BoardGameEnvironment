@@ -9,23 +9,39 @@ import BoardGameEnvironment.*;
 public class MemoryBoardView extends JFrame implements ActionListener{  
 	MemoryGame game;
 	GameBoard board;
-	JPanel p;
+	JPanel gameArea;
+	JPanel statsArea;
 	JButton lastClickedButton;
+	JLabel turn, playerOneScore, playerTwoScore, winMessage;
 
 	public MemoryBoardView(MemoryGame game) {  
 		super("Memory");
 		this.game = game;
 		this.board = this.game.getGameBoard();
 
-		this.p = new JPanel();// creating instance of JPanel
+		this.gameArea = new JPanel();// creating instance of JPanel
+		this.statsArea = new JPanel();
 
-		setSize(500,300);//400 width and 500 height  
+		setSize(500,500);
 		setLayout(null);//using no layout managers  
 
-		this.p.setSize(500, 200);
+		this.gameArea.setSize(500, 200);
+		this.statsArea.setSize(500,100);
 		this.PlacingTiles();
+		winMessage = new JLabel("");
 
-		add(p);
+		this.setLayout(new BorderLayout());
+
+		this.turn = new JLabel("Turn: " + Integer.toString(game.turn));
+		this.playerOneScore = new JLabel("PlayerOneScore: 0");
+		this.playerTwoScore = new JLabel("PlayerTwoScore: 0");
+
+		statsArea.add(this.turn);
+		statsArea.add(this.playerOneScore);
+		statsArea.add(this.playerTwoScore);
+
+		add(statsArea, BorderLayout.NORTH);
+		add(gameArea, BorderLayout.CENTER);
 	} 
 
 	private void PlacingTiles() {
@@ -39,7 +55,7 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 				btn.setActionCommand(btn_command);
 				btn.addActionListener(this);
 
-				this.p.add(btn);
+				this.gameArea.add(btn);
 			}
 		}
 	}
@@ -48,7 +64,7 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e){
 
 		// get button action and parse it for getting the row and column 
 		JButton b = (JButton) e.getSource();
@@ -74,13 +90,8 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 				lastClickedButton = null;
 				break;
 			case 2:
-//				try {
-//					//sleep .5 seconds
-//					Thread.sleep(500);
-//				} catch (InterruptedException hahahaha) {
-//					System.out.println("not matched");
-//				}
 				lastClickedButton.setEnabled(true);
+
 				lastClickedButton.setText(" ");
 				b.setEnabled(true);
 				b.setText(" ");
@@ -93,9 +104,31 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 				// game over
 				System.out.println("game over!");
 				lastClickedButton = null;
+				if (game.getWinner() == 0) {
+					String playerOneName = game.getPlayer(0).getName();
+					winMessage.setText(playerOneName + " wins!");
+				} else if (game.getWinner() == 1) {
+					String playerTwoName = game.getPlayer(1).getName();
+					winMessage.setText(playerTwoName + " wins!");
+				}
+				statsArea.add(winMessage);
 				break;
 			default: 
 				System.out.println("unexpected feedback, please check");
 		}
+		this.statsUpdate();
+	}
+
+	private void  statsUpdate() {
+		if (game.turn == 0) {
+			this.turn.setText("Turn: PlayerOne");
+		} else if (game.turn == 1) {
+			this.turn.setText("Turn: PlayerTwo");
+		}
+
+		String scoreOne = Integer.toString(game.getPlayerOneScore());
+		String scoreTwo = Integer.toString(game.getPlayerTwoScore());
+		this.playerOneScore.setText("PlayerOneScore: " + scoreOne);
+		this.playerTwoScore.setText("PlayerTwoScore: " + scoreTwo);
 	}
 }
