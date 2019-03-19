@@ -34,7 +34,7 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 				// create a new button
 				JButton btn = new JButton(" ");
 				String btn_command = Integer.toString(i) + " " + Integer.toString(j);
-				System.out.println(btn_command);
+				// System.out.println(btn_command);
 				btn.setActionCommand(btn_command);
 				btn.addActionListener(this);
 
@@ -57,8 +57,8 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 		int row = Integer.parseInt(splited[0]);
 		int column = Integer.parseInt(splited[1]);
 
-		System.out.println(row);
-		System.out.println(column);
+		// System.out.println(row);
+		// System.out.println(column);
 
 		// flip action
 		b.setEnabled(false);
@@ -66,5 +66,8 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 		b.setText(Integer.toString(cardNo));
 
 		// playMove
+		int moveFeedBack = game.playMove(row, column);
+		System.out.println(moveFeedBack);
+		// update score
 	}
 }

@@ -14,6 +14,12 @@ import java.util.Scanner;
 public class MemoryGame extends Game {
    private int playerOneScore;
    private int playerTwoScore;
+   private int moveChance;
+
+   // last picked tile info, default are all -1s
+   private int lastPickedTileID;
+   private int lastPickedTileX;
+   private int lastPickedTileY;
 
    public MemoryGame(User playerOne, User playerTwo){
      super(new User[] {playerOne, playerTwo});
@@ -21,23 +27,111 @@ public class MemoryGame extends Game {
      this.playerOneScore = 0;
      this.playerTwoScore = 0;
 
+     this.moveChance = 2;
+
+     this.lastPickedTileID = -1;
+     this.lastPickedTileX = -1;
+     this.lastPickedTileY = -1;
+
      this.turn = 0;
 
      this.board = new MemoryGameBoard(5,6);
-     // this.run();
-     // this.end();
    }
 
 
-	@Override
-	public void run() {
+	public int playMove(int x, int y) {
+		this.moveChance--;
+		int output = -1;
+
+		// play move
+		int currentPickedTileId = this.board.getPiece(x, y).id;
+		if (this.moveChance == 0) {
+			// no more chances, checking if match
+			if (currentPickedTileId == this.lastPickedTileID) {
+				// match, buttons should not be avaliable again
+
+				this.playerScoring(this.turn); // increment player score
+				this.nextPlayer();
+
+				output = 1; // board should keep tiles flipped
+
+				if (this.checkIfGameEnd() == true)
+					output = 4; // board should keep the tiles flipped and end the game, show winner
+			} else if (currentPickedTileId != this.lastPickedTileID) {
+				// no match
+				
+				this.nextPlayer();
+				output = 2; // board should flip tiles back
+			}
+		} else if (this.moveChance == 1) {
+			// still have changes left, record move
+			this.lastPickedTileID = currentPickedTileId;
+			this.lastPickedTileX = x;
+			this.lastPickedTileY = y;
+			output = 3; // still have chance to move, board do nothing
+		}
+		return output;
+	}
+
+
+	private void nextPlayer() {
+		// change turn to next player
+		this.changeTurn();
+		// refill the chance
+		this.moveChance = 2;
+		// rest lastPickedTile
+		this.lastPickedTileID = -1;
+		this.lastPickedTileX = -1;
+     	this.lastPickedTileY = -1;
+	} 
+
+	private void playerScoring(int playerIndex) {
+		// incrementing score of the current user
+		if (playerIndex == 0) {
+			this.playerOneScore++;
+		} else {
+			this.playerTwoScore++;
+		}
+	}
+
+	private boolean checkIfGameEnd() {
 		int totalScore = playerOneScore + playerTwoScore;
-		while (totalScore < 15) {
-			this.startTurn();
-			this.endTurn();
-			// refresh total score
-			totalScore = playerOneScore + playerTwoScore;
-		} 
+		if (totalScore == 15 && playerOneScore > playerTwoScore) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public User checkIfEnd() {
+		int totalScore = playerOneScore + playerTwoScore;
+		if (totalScore == 15 && playerOneScore > playerTwoScore) {
+			return this.players[0];
+		} else if (totalScore == 15 && playerTwoScore > playerOneScore) {
+			return this.players[1];
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -55,72 +149,63 @@ public class MemoryGame extends Game {
 		}
 	}
 
-	private void startTurn() {
-		// printing board info into console
-		System.out.println(this.board);
-		System.out.println("Player one score: " + playerOneScore);
-		System.out.println("Player two score: " + playerTwoScore);
+	// private void startTurn() {
+	// 	// // printing board info into console
+	// 	// System.out.println(this.board);
+	// 	// System.out.println("Player one score: " + playerOneScore);
+	// 	// System.out.println("Player two score: " + playerTwoScore);
 
-		if (this.turn == 0) {
-			System.out.println("Player One's turn...");
-		} else {
-			System.out.println("Player Two's turn...");
-		}
+	// 	// if (this.turn == 0) {
+	// 	// 	System.out.println("Player One's turn...");
+	// 	// } else {
+	// 	// 	System.out.println("Player Two's turn...");
+	// 	// }
 
-		int[] firstXY = askPieceWhere(1);
-		int xOne = firstXY[0];
-		int yOne = firstXY[1];
-		Piece pieceOne = this.board.getPiece(xOne, yOne);
+	// 	// int[] firstXY = askPieceWhere(1);
+	// 	// int xOne = firstXY[0];
+	// 	// int yOne = firstXY[1];
+	// 	// Piece pieceOne = this.board.getPiece(xOne, yOne);
 
-		int[] secondXY = askPieceWhere(2);
-		int xTwo = secondXY[0];
-		int yTwo = secondXY[1];
-		Piece pieceTwo = this.board.getPiece(xTwo, yTwo);
+	// 	// int[] secondXY = askPieceWhere(2);
+	// 	// int xTwo = secondXY[0];
+	// 	// int yTwo = secondXY[1];
+	// 	// Piece pieceTwo = this.board.getPiece(xTwo, yTwo);
 
-		// FIXME: feeling this step is extra due to the parameter issue with playMove
-		User currentPlayer = null;
-		if (this.turn == 0) {
-			currentPlayer = this.players[0];
-		} else {
-			currentPlayer = this.players[1];
-		}
+	// 	// // FIXME: feeling this step is extra due to the parameter issue with playMove
+	// 	// User currentPlayer = null;
+	// 	// if (this.turn == 0) {
+	// 	// 	currentPlayer = this.players[0];
+	// 	// } else {
+	// 	// 	currentPlayer = this.players[1];
+	// 	// }
 
-		// comparing the id of two Pieces
-		if (pieceOne.id == pieceTwo.id && pieceOne.id != -1) {
-			// if two tiles match. replacing with playerPiece
-			System.out.println("Scored!");
+	// 	// comparing the id of two Pieces
+	// 	if (pieceOne.id == pieceTwo.id && pieceOne.id != -1) {
+	// 		// if two tiles match. replacing with playerPiece
+	// 		System.out.println("Scored!");
 
-			this.playMove(xOne, yOne, currentPlayer);
-			this.playMove(xTwo, yTwo, currentPlayer);
-			// incrementing score of the current user
-			if (this.turn == 0) {
-				this.playerOneScore++;
-			} else {
-				this.playerTwoScore++;
-			}
-		} else {
-			System.out.println("Ops, they are not matched");
-		}
-	}
-
-	private void endTurn() {
-		int totalScore = playerOneScore + playerTwoScore;
-
-		if (totalScore < 15) {
-			this.changeTurn();
-		}
-	} 
+	// 		this.playMove(xOne, yOne, currentPlayer);
+	// 		this.playMove(xTwo, yTwo, currentPlayer);
+	// 		// // incrementing score of the current user
+	// 		// if (this.turn == 0) {
+	// 		// 	this.playerOneScore++;
+	// 		// } else {
+	// 		// 	this.playerTwoScore++;
+	// 		// }
+	// 	} else {
+	// 		System.out.println("Ops, they are not matched");
+	// 	}
+	// }
 	
 	@Override
-	public User checkIfEnd() {
+	public void run() {
 		int totalScore = playerOneScore + playerTwoScore;
-		if (totalScore == 15 && playerOneScore > playerTwoScore) {
-			return this.players[0];
-		} else if (totalScore == 15 && playerTwoScore > playerOneScore) {
-			return this.players[1];
-		} else {
-			return null;
-		}
+		while (totalScore < 15) {
+//			this.startTurn();
+//			this.endTurn();
+			// refresh total score
+			totalScore = playerOneScore + playerTwoScore;
+		} 
 	}
 
 	@Override
