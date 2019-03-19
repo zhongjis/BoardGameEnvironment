@@ -12,6 +12,7 @@ import java.io.*;
 import BoardGameEnvironment.Checkers.CheckersGame;
 import BoardGameEnvironment.Checkers.CheckersMain;
 import BoardGameEnvironment.ConnectFour.ConnectFourMain;
+import BoardGameEnvironment.Memory.*; 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
@@ -89,6 +90,9 @@ public class Menu {
       switch(type) {
         case "memory":
           System.out.println("memoryyy");
+          MemoryGame newMemoryGame = new MemoryGame(users[0], users[1]);
+          MemoryBoardView view = new MemoryBoardView(newMemoryGame);
+          view.showBoard();
           break;
         case "checkers":
           System.out.println("checkers");

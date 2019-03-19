@@ -17,6 +17,10 @@ public abstract class Game {
     }
   }
 
+  public GameBoard getGameBoard() {
+    return this.board;
+  }
+
   public abstract void run();
 
   public abstract void end();
