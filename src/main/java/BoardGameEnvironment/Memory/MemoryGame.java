@@ -79,6 +79,8 @@ public class MemoryGame extends Game {
 			this.lastPickedTileY = y;
 			output = 3; // still have chance to move, board do nothing
 		}
+		System.out.println("One: " + this.playerOneScore);
+		System.out.println("Two: " + this.playerTwoScore);
 		return output;
 	}
 
