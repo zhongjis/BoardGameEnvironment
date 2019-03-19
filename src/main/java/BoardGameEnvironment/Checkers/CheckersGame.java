@@ -523,6 +523,6 @@ public class CheckersGame extends Game {
 		board.initializeGameBoard();
 		playerTurn = 1;
 		turnNumber = 1;
-		end = true;
+		end = false;
 	}
 }

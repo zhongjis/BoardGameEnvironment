@@ -63,7 +63,22 @@ public class CheckersBoardView extends JComponent{
 							dragging = true;
 						}
 					}
+				}else {
+					int x = me.getX();
+					int y = me.getY();
+					if(x > 355 && x < 445 && y > 560 && y < 610)
+					{
+						gameState.reset();
+						dragging = false;
+						draggingPiece = null;
+						oldX = -1;
+						oldY = -1;
+						reCapture = null;
+						updateGameViewBoard();
+						repaint();
+					}
 				}
+				System.out.println(me.getX()+","+me.getY());
 			}
 			
 			public void mouseReleased(MouseEvent me) {
@@ -188,7 +203,7 @@ public class CheckersBoardView extends JComponent{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.BOLD, 16));
 		g.drawString("Play Again", 362, 590);
-		PlayAgain end = new PlayAgain(this);
+		//PlayAgain end = new PlayAgain(this);
 	}
 	
 	@Override
