@@ -4,14 +4,17 @@ import java.awt.*;
 import javax.swing.*;  
 import java.awt.event.*;  
 import javax.swing.JOptionPane;
+import BoardGameEnvironment.*;
 
 public class MemoryBoardView extends JFrame implements ActionListener{  
 	MemoryGame game;
+	GameBoard board;
 	JPanel p;
 
 	public MemoryBoardView(MemoryGame game) {  
 		super("Memory");
 		this.game = game;
+		this.board = this.game.getGameBoard();
 
 		this.p = new JPanel();// creating instance of JPanel
 
