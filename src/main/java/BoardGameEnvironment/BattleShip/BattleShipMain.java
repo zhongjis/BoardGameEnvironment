@@ -1,4 +1,4 @@
-package BoardGameEnvironment;
+package BoardGameEnvironment.BattleShip;
 
 import javax.swing.JFrame;
 

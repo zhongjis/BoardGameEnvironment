@@ -1,4 +1,6 @@
-package BoardGameEnvironment;
+package BoardGameEnvironment.BattleShip;
+
+import BoardGameEnvironment.Piece;
 
 public class BattleShipPiece extends Piece {
 	private int state; 

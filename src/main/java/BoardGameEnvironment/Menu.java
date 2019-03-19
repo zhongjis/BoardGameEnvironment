@@ -9,6 +9,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.io.*;
 
+import BoardGameEnvironment.BattleShip.BattleShip;
+import BoardGameEnvironment.BattleShip.BattleShipMain;
 import BoardGameEnvironment.Checkers.CheckersGame;
 import BoardGameEnvironment.Checkers.CheckersMain;
 import BoardGameEnvironment.ConnectFour.ConnectFourMain;
@@ -100,6 +102,7 @@ public class Menu {
           break;
         case "battleship":
           System.out.println("battleship");
+          BattleShipMain battleShipGame = new BattleShipMain(userOne, userTwo);
           break;
         case "connectfour":
           System.out.println("connectfour");

@@ -1,5 +1,10 @@
-package BoardGameEnvironment;
+package BoardGameEnvironment.BattleShip;
  
+import BoardGameEnvironment.BattleShip.BattleShipPiece;
+import BoardGameEnvironment.GameBoard;
+import BoardGameEnvironment.Piece;
+import BoardGameEnvironment.User;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList; 
@@ -14,7 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 public class BattleShip extends GameBoard {
-    public  User[] players; 
+    public  User[] players;
     public int turn;
 
     private int[] ships;
@@ -77,7 +82,7 @@ public class BattleShip extends GameBoard {
     
     
 	@Override
-	void initializeGameBoard() {
+    public void initializeGameBoard() {
 		int shipIndex = 0;
         while(shipIndex < 5)
         {
@@ -162,14 +167,14 @@ public class BattleShip extends GameBoard {
             {
             	GAME_OVER = true;
             	players[1].battleshipWins++;
-            	players[0].battleshipLoses--;
+            	players[0].battleshipLoses++;
                 return players[1]; 
             }
             else
             {
             	GAME_OVER = true;
             	players[0].battleshipWins++;
-            	players[1].battleshipLoses--;
+            	players[1].battleshipLoses++;
                 return players[0];
             }
             
