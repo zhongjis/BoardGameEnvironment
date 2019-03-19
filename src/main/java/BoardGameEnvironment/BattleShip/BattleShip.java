@@ -3,16 +3,13 @@ package BoardGameEnvironment;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList; 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.awt.image.BufferedImage;
-import java.awt.Color;
+
 public class BattleShip extends GameBoard {
     public  User[] players; 
     public int turn;
@@ -162,14 +159,14 @@ public class BattleShip extends GameBoard {
             {
             	GAME_OVER = true;
             	players[1].battleshipWins++;
-            	players[0].battleshipLoses--;
+            	players[0].battleshipLoses++;
                 return players[1]; 
             }
             else
             {
             	GAME_OVER = true;
             	players[0].battleshipWins++;
-            	players[1].battleshipLoses--;
+            	players[1].battleshipLoses++;
                 return players[0];
             }
             
@@ -186,6 +183,7 @@ public class BattleShip extends GameBoard {
                 if(((BattleShipPiece) boardArray[x][y]).getState() == SHIP)// HIT
                 {
                     ((BattleShipPiece) boardArray[x][y]).setState(HIT);
+                    new BattleShipBoom();
                     shipsHit++;
                     playerScore[0]++; 
                     ++turn;
@@ -211,6 +209,7 @@ public class BattleShip extends GameBoard {
                      if(((BattleShipPiece) boardArray[x][y]).getState() == SHIP)// HIT
                      {
                          ((BattleShipPiece) boardArray[x][y]).setState(HIT);
+                         new BattleShipBoom();
                          shipsHit++;
                          playerScore[1]++; 
                          ++turn;   
@@ -255,7 +254,7 @@ public class BattleShip extends GameBoard {
     {
     	return GAME_OVER;
     }
-
+    
 
 
 
