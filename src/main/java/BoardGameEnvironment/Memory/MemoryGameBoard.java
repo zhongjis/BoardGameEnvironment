@@ -20,9 +20,9 @@ public class MemoryGameBoard extends GameBoard {
 
     // System.out.println(Arrays.toString(randomPairs));
 
-    for(int i=0; i< this.width; i++){
+    for(int i=0; i < this.width; i++){
 			for(int j = 0; j < this.height; j++) {
-				this.boardArray[i][j] = new Piece(randomPairs[i*(this.width+1)+j]);
+				this.boardArray[j][i] = new Piece(randomPairs[i*(this.width+1)+j]);
 			}
 		}
   }

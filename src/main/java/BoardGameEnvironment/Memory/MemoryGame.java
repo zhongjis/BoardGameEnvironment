@@ -24,8 +24,8 @@ public class MemoryGame extends Game {
      this.turn = 0;
 
      this.board = new MemoryGameBoard(5,6);
-     this.run();
-     this.end();
+     // this.run();
+     // this.end();
    }
 
 
