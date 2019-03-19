@@ -168,7 +168,7 @@ public class BattleShip extends GameBoard {
             else
             {
             	GAME_OVER = true;
-            	players[0].battleshipWins;
+            	players[0].battleshipWins++;
             	players[1].battleshipLoses--;
                 return players[0];
             }
