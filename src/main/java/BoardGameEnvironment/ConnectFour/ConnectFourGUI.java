@@ -290,7 +290,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 	
 	public void drawPiece(Graphics g, int x, int y)
 	{
-		System.out.println(this.game.getBoard());
+		
 		this.setColor(g, this.game.getBoard().getPiece(y, x).getId());
 		g.fillOval(this.calcPixX(x), this.calcPixY(y), pieceSize, pieceSize); 	
 	}
