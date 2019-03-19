@@ -28,7 +28,7 @@ public class MemoryGameBoard extends GameBoard {
   }
 
   private int[] generateRandomPairs(int pairs) {
-    int[] randomPairs = new int[pairs*2];
+    Integer[] randomPairs = new Integer[pairs*2];
     
     for(int i=0, j=0; i < pairs*2; i+=2, j++) {
       // System.out.println(j + " " + i);
@@ -36,6 +36,14 @@ public class MemoryGameBoard extends GameBoard {
       randomPairs[i+1] = j;
     }
 
-    return randomPairs;
+    List<Integer> randomizeArray = Arrays.asList(randomPairs);
+    Collections.shuffle(randomizeArray);
+    int[] output = new int[pairs*2];
+
+    for(int i=0; i < randomizeArray.size(); i++) {
+        output[i] = randomizeArray.get(i);
+    }
+
+    return output;
   }
 }
