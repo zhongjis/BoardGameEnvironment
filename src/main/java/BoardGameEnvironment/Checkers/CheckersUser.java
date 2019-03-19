@@ -2,10 +2,10 @@ package main.java.BoardGameEnvironment.Checkers;
 import main.java.BoardGameEnvironment.User;
 
 public class CheckersUser extends User{
-	protected int pieces = 1;
+	protected int pieces = 12;
 	
 	public CheckersUser(String name) {
-		super(name);	
+		super(name);
 	}
 	
 	public int getPieces() {

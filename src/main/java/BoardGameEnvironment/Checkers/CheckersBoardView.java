@@ -78,7 +78,6 @@ public class CheckersBoardView extends JComponent{
 						repaint();
 					}
 				}
-				System.out.println(me.getX()+","+me.getY());
 			}
 			
 			public void mouseReleased(MouseEvent me) {
@@ -157,34 +156,6 @@ public class CheckersBoardView extends JComponent{
 		});
 	}
 	
-	public class PlayAgain extends JComponent{
-		CheckersBoardView boardView;
-		private Dimension dimSize = new Dimension(90, 50);
-		
-		public PlayAgain(CheckersBoardView boardView) {
-			this.boardView = boardView;
-			setBounds(355, 560, 90, 50);
-			addMouseListener(new MouseAdapter() {
-				public void mousePressed(MouseEvent me) {
-					boardView.gameState.reset();
-					boardView.dragging = false;
-					boardView.draggingPiece = null;
-					boardView.oldX = -1;
-					boardView.oldY = -1;
-					boardView.reCapture = null;
-					boardView.updateGameViewBoard();
-					boardView.repaint();
-					System.out.println("HERE");
-				}
-			});
-		}
-		
-		@Override
-		public Dimension getPreferredSize() {
-			return dimSize;
-		}
-	}
-	
 	public void paintGameOver(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.BOLD, 72));
 		g.setColor(new Color(37, 53, 255, 255));
@@ -203,7 +174,6 @@ public class CheckersBoardView extends JComponent{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.BOLD, 16));
 		g.drawString("Play Again", 362, 590);
-		//PlayAgain end = new PlayAgain(this);
 	}
 	
 	@Override
