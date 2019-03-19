@@ -3,6 +3,7 @@
  */
 
 package BoardGameEnvironment;
+
 // package BoardGameEnvironment.Memory;
 
 public class App {
@@ -13,8 +14,8 @@ public class App {
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
 
-
         Menu start = new Menu();
         start.run();
     }
 }
+
