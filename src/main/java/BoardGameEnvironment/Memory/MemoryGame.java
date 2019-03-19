@@ -38,7 +38,16 @@ public class MemoryGame extends Game {
      this.board = new MemoryGameBoard(5,6);
    }
 
-
+   	/**
+   	 * feedback list
+   	 * 1: board should keep tiles flipped
+   	 * 2: board should flip tiles back
+   	 * 3: still have chance to move, board do nothing except record the button clicked
+   	 * 4: board should keep the tiles flipped and end the game, show winner
+   	 * @param  x row
+   	 * @param  y column
+   	 * @return   feedback index
+   	 */
 	public int playMove(int x, int y) {
 		this.moveChance--;
 		int output = -1;

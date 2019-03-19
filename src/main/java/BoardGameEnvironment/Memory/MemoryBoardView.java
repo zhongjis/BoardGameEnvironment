@@ -2,7 +2,7 @@ package BoardGameEnvironment.Memory;
 
 import java.awt.*;
 import javax.swing.*;  
-import java.awt.event.*;  
+import java.awt.event.*;
 import javax.swing.JOptionPane;
 import BoardGameEnvironment.*;
 
@@ -10,6 +10,7 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 	MemoryGame game;
 	GameBoard board;
 	JPanel p;
+	JButton lastClickedButton;
 
 	public MemoryBoardView(MemoryGame game) {  
 		super("Memory");
@@ -48,7 +49,6 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("button clicked");
 
 		// get button action and parse it for getting the row and column 
 		JButton b = (JButton) e.getSource();
@@ -68,6 +68,34 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 		// playMove
 		int moveFeedBack = game.playMove(row, column);
 		System.out.println(moveFeedBack);
-		// update score
+		
+		switch (moveFeedBack) {
+			case 1:
+				lastClickedButton = null;
+				break;
+			case 2:
+//				try {
+//					//sleep .5 seconds
+//					Thread.sleep(500);
+//				} catch (InterruptedException hahahaha) {
+//					System.out.println("not matched");
+				}
+				lastClickedButton.setEnabled(true);
+				lastClickedButton.setText(" ");
+				b.setEnabled(true);
+				b.setText(" ");
+				lastClickedButton = null;
+				break;
+			case 3:
+				lastClickedButton = (JButton) e.getSource();
+				break;
+			case 4:
+				// game over
+				System.out.println("game over!");
+				lastClickedButton = null;
+				break;
+			default: 
+				System.out.println("unexpected feedback, please check");
+		}
 	}
 }
