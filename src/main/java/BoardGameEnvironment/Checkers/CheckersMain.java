@@ -12,8 +12,8 @@ public class CheckersMain extends JFrame{
 		CheckersBoard board = new CheckersBoard();
 		board.initializeGameBoard();
 		CheckersGame gameState = new CheckersGame(board, userOne, userTwo);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		CheckersBoardView gameView = new CheckersBoardView(gameState);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setContentPane(gameView);
 		setResizable(false);
 		pack();

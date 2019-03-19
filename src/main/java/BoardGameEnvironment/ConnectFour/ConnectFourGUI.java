@@ -290,7 +290,7 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 	
 	public void drawPiece(Graphics g, int x, int y)
 	{
-		System.out.println(this.game.getBoard());
+		
 		this.setColor(g, this.game.getBoard().getPiece(y, x).getId());
 		g.fillOval(this.calcPixX(x), this.calcPixY(y), pieceSize, pieceSize); 	
 	}
@@ -320,11 +320,12 @@ public class ConnectFourGUI extends JPanel implements ActionListener{
 		{
 			String str = String.format("%s(%s) won!", this.game.getPlayer().getName(),this.game.getColor());
 			this.statusBar.setText(str);
-			this.game.end();
 			this.setBackground(this.getColor(this.game.getTurn()));
 			this.add(gameoverLabel,BorderLayout.CENTER);
 			this.add(restartButton,BorderLayout.NORTH);
-			restartButton.setBounds(this.width/2-150,optionY,300,verPadding/2)	;
+			restartButton.setBounds(this.width/2-150,optionY,300,verPadding/2);
+			this.game.end();
+			this.game.isWin = false;
 		}
 		
 		statusPanel.setBackground(this.getColor(this.game.getTurn()));

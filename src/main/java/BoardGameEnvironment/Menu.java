@@ -143,10 +143,21 @@ public class Menu {
                   int[] statisticsArray = new int[a.values().size()];
 
                   int count = 0;
-                  for(Object k : a.values()) {
-                    statisticsArray[count] = Integer.parseInt(k.toString());
-                    count++;
-                  }
+
+                  statisticsArray[0] = Integer.parseInt(String.valueOf(a.get("memoryWins")));
+                  statisticsArray[1] = Integer.parseInt(String.valueOf(a.get("memoryLoses")));
+                  statisticsArray[2] = Integer.parseInt(String.valueOf(a.get("connectfourWins")));
+                  statisticsArray[3] = Integer.parseInt(String.valueOf(a.get("connectfourLoses")));
+                  statisticsArray[4] = Integer.parseInt(String.valueOf(a.get("checkersWins")));
+                  statisticsArray[5] = Integer.parseInt(String.valueOf(a.get("checkersLoses")));
+                  statisticsArray[6] = Integer.parseInt(String.valueOf(a.get("battleshipWins")));
+                  statisticsArray[7] = Integer.parseInt(String.valueOf(a.get("battleshipLoses")));
+
+//                  for(Object k : a.keySet()) {
+//                    System.out.println(k + " " + a.get(k));
+//                    statisticsArray[count] = Integer.parseInt(String.valueOf(a.get(k)));
+//                    count++;
+//                  }
 
                   User importedUser = new User((String) key, statisticsArray);
                   usersList.put((String) key, importedUser);
