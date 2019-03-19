@@ -134,8 +134,10 @@ public class CheckersBoardView extends JComponent{
 					repaint();
 					draggingPiece = null;
 					ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
-					if(availablePieces.size() == 0)
+					if(availablePieces.size() == 0) {
 						gameState.end = true;
+						gameState.changeTurn();
+					}
 					if(gameState.end) {
 						gameState.endSequence();
 						repaint();
