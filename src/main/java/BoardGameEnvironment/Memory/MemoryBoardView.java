@@ -46,8 +46,14 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("button clicked");
+
+		// get button action and parse it for getting the row and column
 		JButton b = (JButton) e.getSource();
-		String position = b.getActionCommand();
-		System.out.println(position);
+		String btn_command = b.getActionCommand();
+		String[] splited = btn_command.split("\\s+");
+		int row = Integer.parseInt(splited[0]);
+		int column = Integer.parseInt(splited[1]);
+		System.out.println(row);
+		System.out.println(column);
 	}
 }
