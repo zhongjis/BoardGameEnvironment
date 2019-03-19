@@ -79,7 +79,7 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 //					Thread.sleep(500);
 //				} catch (InterruptedException hahahaha) {
 //					System.out.println("not matched");
-				}
+//				}
 				lastClickedButton.setEnabled(true);
 				lastClickedButton.setText(" ");
 				b.setEnabled(true);
