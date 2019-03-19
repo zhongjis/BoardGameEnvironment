@@ -25,8 +25,8 @@ public class MemoryBoardView extends JFrame implements ActionListener{
 	} 
 
 	private void PlacingTiles() {
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 6; j++) {
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 5; j++) {
 
 				// create a new button
 				JButton btn = new JButton(" ");
