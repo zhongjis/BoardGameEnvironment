@@ -213,18 +213,4 @@ public class ConnectFourGame extends Game
 		 new ConnectFourGame(this.players);
 	}
 	
-	public static void main(String[]args)
-	{
-		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the first player(yellow)");
-		String playerA = input.nextLine();
-		System.out.println("Enter the second player(red)");
-		String playerB = input.nextLine();
-		
-		User[]players = {new User(playerA),new User(playerB)};
-		
-		ConnectFourGame g = new ConnectFourGame(players);
-		g.run();
-	}
-	
 }
