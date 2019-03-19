@@ -123,10 +123,20 @@ public class CheckersGame extends Game {
 	
 	public User checkIfEnd() {
 		if(usersList.get(0).getPieces() == 0)
-			return usersList.get(0);
-		else if(usersList.get(1).getPieces() == 0)
 			return usersList.get(1);
+		else if(usersList.get(1).getPieces() == 0)
+			return usersList.get(0);
 		return null;
+	}
+	
+	public void endSequence(){
+		if(playerTurn == 2) {
+			getPlayer(1).checkersWins++;
+			getPlayer(0).checkersLoses++;
+		}else {
+			getPlayer(1).checkersLoses++;
+			getPlayer(0).checkersWins++;
+		}
 	}
 	
 	public User changeTurn() {
@@ -426,9 +436,9 @@ public class CheckersGame extends Game {
 		int x = middle.getX(), y = middle.getY();
 		board.getBoardArray()[x][y] = new CheckersPiece();
 		if(playerTurn == 1) {
-			usersList.get(0).decrementPieces();
-		}else {
 			usersList.get(1).decrementPieces();
+		}else {
+			usersList.get(0).decrementPieces();
 		}
 		end.setCapturable(false);
 		return checkIfEnd();

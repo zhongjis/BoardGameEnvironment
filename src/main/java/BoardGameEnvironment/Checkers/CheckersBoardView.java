@@ -45,15 +45,11 @@ public class CheckersBoardView extends JComponent{
 					CheckersLocation click = new CheckersLocation(boardY, boardX);
 					if(reCapture == null) {
 						ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
-						if(availablePieces.size() == 0)
-							gameState.end = true;
-						else {
-							if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
-								draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
-								oldX = boardX;
-								oldY = boardY;
-								dragging = true;
-							}
+						if(gameState.checkValidSelection(click) && checkInList(click, availablePieces)){
+							draggingPiece = new CheckersPieceView(boardX*SQUAREDIM, boardY*SQUAREDIM);
+							oldX = boardX;
+							oldY = boardY;
+							dragging = true;
 						}
 					}else {
 						if(gameState.checkValidSelection(click) && click.getX() == reCapture.getX() && click.getY() == reCapture.getY()) {
@@ -81,64 +77,69 @@ public class CheckersBoardView extends JComponent{
 			}
 			
 			public void mouseReleased(MouseEvent me) {
-				if(dragging)
-					dragging = false;
-				else
-					return;
-				CheckersLocation oldClick = new CheckersLocation(oldY, oldX);
-				int x = me.getX();
-				int y = me.getY();
-				int boardX = (int)Math.floor(x/100.0);
-				int boardY = (int)Math.floor(y/100.0);
-				CheckersLocation drop = new CheckersLocation(boardY, boardX);
-				if(reCapture == null) {
-					ArrayList<CheckersLocation> checkMoves = gameState.checkAvailableMoves(oldClick, gameState.board.getPiece(oldClick.getX(), oldClick.getY()).getType());
-					if(checkInList(drop, checkMoves)){
-						CheckersLocation middle = gameState.getMiddlePiece(oldClick, drop);
-						if(middle != null) {
-							if(gameState.capture(middle, drop) != null)
-								gameState.end = true;
-						}
-						gameState.movePiece(oldClick, drop);
-						if(middle != null) {
-							ArrayList<CheckersLocation> availableReCaptures = gameState.checkReCapturable(drop);
-							if(availableReCaptures.size() != 0)
-								reCapture = drop;
-						}
-						if(!gameState.end) {
-							if(reCapture == null)
-								gameState.changeTurn();
-						}
-						gameState.turnNumber++;
-					}
-				}else {
-					if(!gameState.end){
-						ArrayList<CheckersLocation> availableReCaptures = gameState.checkReCapturable(reCapture);
-						if(checkInList(drop, availableReCaptures)){
-							CheckersLocation middle = gameState.getMiddlePiece(reCapture, drop);
-							if(gameState.capture(middle, drop) != null) {
-								gameState.movePiece(reCapture, drop);
-								gameState.end = true;
+				if(!gameState.end) {
+					if(dragging)
+						dragging = false;
+					else
+						return;
+					CheckersLocation oldClick = new CheckersLocation(oldY, oldX);
+					int x = me.getX();
+					int y = me.getY();
+					int boardX = (int)Math.floor(x/100.0);
+					int boardY = (int)Math.floor(y/100.0);
+					CheckersLocation drop = new CheckersLocation(boardY, boardX);
+					if(reCapture == null) {
+						ArrayList<CheckersLocation> checkMoves = gameState.checkAvailableMoves(oldClick, gameState.board.getPiece(oldClick.getX(), oldClick.getY()).getType());
+						if(checkInList(drop, checkMoves)){
+							CheckersLocation middle = gameState.getMiddlePiece(oldClick, drop);
+							if(middle != null) {
+								if(gameState.capture(middle, drop) != null)
+									gameState.end = true;
 							}
-							else {
-								gameState.movePiece(reCapture, drop);
-								reCapture = drop;
-								gameState.turnNumber++;
-								availableReCaptures = gameState.checkReCapturable(drop);
-								if(availableReCaptures.size() == 0) {
-									reCapture = null;
+							gameState.movePiece(oldClick, drop);
+							if(middle != null) {
+								ArrayList<CheckersLocation> availableReCaptures = gameState.checkReCapturable(drop);
+								if(availableReCaptures.size() != 0)
+									reCapture = drop;
+							}
+							if(!gameState.end) {
+								if(reCapture == null)
 									gameState.changeTurn();
+							}
+							gameState.turnNumber++;
+						}
+					}else {
+						if(!gameState.end){
+							ArrayList<CheckersLocation> availableReCaptures = gameState.checkReCapturable(reCapture);
+							if(checkInList(drop, availableReCaptures)){
+								CheckersLocation middle = gameState.getMiddlePiece(reCapture, drop);
+								if(gameState.capture(middle, drop) != null) {
+									gameState.movePiece(reCapture, drop);
+									gameState.end = true;
+								}
+								else {
+									gameState.movePiece(reCapture, drop);
+									reCapture = drop;
+									gameState.turnNumber++;
+									availableReCaptures = gameState.checkReCapturable(drop);
+									if(availableReCaptures.size() == 0) {
+										reCapture = null;
+										gameState.changeTurn();
+									}
 								}
 							}
 						}
 					}
-				}
-				updateGameViewBoard();
-				repaint();
-				draggingPiece = null;
-				if(gameState.end) {
+					updateGameViewBoard();
 					repaint();
-					return;
+					draggingPiece = null;
+					ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
+					if(availablePieces.size() == 0)
+						gameState.end = true;
+					if(gameState.end) {
+						gameState.endSequence();
+						repaint();
+					}
 				}
 			}
 		});
@@ -199,13 +200,15 @@ public class CheckersBoardView extends JComponent{
 			}
 		}
 		if(draggingPiece == null) {
-			if(reCapture == null) {
-				ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
-				for(CheckersLocation element : availablePieces) {
-					checkersPieces[element.getX()][element.getY()].drawActive(g, element.getY()*SQUAREDIM, element.getX()*SQUAREDIM);
-				}
-			}else
-				checkersPieces[reCapture.getX()][reCapture.getY()].drawActive(g, reCapture.getY()*SQUAREDIM, reCapture.getX()*SQUAREDIM);
+			if(!gameState.end) {
+				if(reCapture == null) {
+					ArrayList<CheckersLocation> availablePieces = gameState.startOfTurn();
+					for(CheckersLocation element : availablePieces) {
+						checkersPieces[element.getX()][element.getY()].drawActive(g, element.getY()*SQUAREDIM, element.getX()*SQUAREDIM);
+					}
+				}else
+					checkersPieces[reCapture.getX()][reCapture.getY()].drawActive(g, reCapture.getY()*SQUAREDIM, reCapture.getX()*SQUAREDIM);
+			}
 		}else {
 			g.setColor(Color.BLACK);
 			g.fillRect(draggingPiece.x, draggingPiece.y, SQUAREDIM, SQUAREDIM);
