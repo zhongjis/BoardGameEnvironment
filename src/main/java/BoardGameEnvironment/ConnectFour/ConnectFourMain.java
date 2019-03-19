@@ -17,7 +17,7 @@ public class ConnectFourMain extends JFrame {
 		
 		this.add(GUI,BorderLayout.CENTER);
 		this.setTitle("Connect Four");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 
 	}
